@@ -1,0 +1,19 @@
+{
+  "author": "Gui Lin <guileen@gmail.com>",
+  "name": "weibo-spy",
+  "version": "0.0.1",
+  "dependencies": {
+    "kick": "0.1.0"
+  , "myconsole": "*"
+  , "connect": "*"
+  , "redis": "*"
+  , "async": "*"
+  , "connect-redis": "*"
+  , "oauth": "*"
+  },
+  "devDependencies": {},
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
+  }
+}

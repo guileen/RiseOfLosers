@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Home
+    </title>
+    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css">
+    <style>body {
+  padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+}
+</style>
+  </head>
+  <body>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container"><a data-toggle="collapse" data-target=".nav-collapse" class="btn btn-navbar"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a href="/" class="brand">{site name}</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a>
+              </li>
+              <li><a href="#about">About</a>
+              </li>
+              <li><a href="#contact">Contact</a>
+              </li>
+            </ul>
+            <div class="navbar-text pull-right user-actions"><a href="/login/oauth2?sina" target="_blank">Weibo</a><a href="#/bind-account">绑定帐号</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <script id="user-information" type="template">
+        <p><a href="#">{access_token}</a>
+        </p>
+        <p><a href="#">{access_token}</a>
+        </p>
+      </script>
+      <p>hello
+      </p>
+    </div>
+    <script src="http://code.jquery.com/jquery-1.7.2.js"></script>
+    <script src="/js/render.js"></script>
+    <script src="/js/restclient.js"></script>
+    <script src="/js/social/tapi.js"></script>
+    <script src="/js/social/tsina.js"></script>
+    <script src="/js/social/tqq.js"></script>
+    <script src="/js/main.js"></script>
+    <script>function setOA2Token(oa2token) {
+  setTimeout(function(){
+    $('#user-information').render(oa2token).fadeIn();
+  }, 200)
+  setTimeout(function(){
+    $('#user-information').render(oa2token, {flush: true}).fadeIn();
+  }, 1000);
+  setTimeout(function(){
+    $('#user-information').render(oa2token).fadeIn();
+  }, 2000);
+  setTimeout(function(){
+    $('#user-information').render(oa2token).fadeIn();
+  }, 3000);
+}
+
+$(function(){
+  setOA2Token({access_token: '12345'})
+})
+
+//- app.register({
+//- '/bind-account' : function(){
+
+//- }
+//- })
+//-   $('a.kick-routing').kick({
+//-     '/bind-account': function(){
+//-     // show / hide
+//-     }
+//-     , '/bar': function() {
+//-     // show / hide
+//-     }
+//-   });
+
+</script>
+    <script></script>
+  </body>
+</html>
