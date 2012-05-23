@@ -1,6 +1,7 @@
 {
   "author": "Gui Lin <guileen@gmail.com>",
-  "name": "weibo-spy",
+  "name": "TheLoserRises",
+  "private": true,
   "version": "0.0.1",
   "dependencies": {
     "kick": "0.1.0"
@@ -14,6 +15,6 @@
   "devDependencies": {},
   "optionalDependencies": {},
   "engines": {
-    "node": "*"
+    "node": "0.6.x"
   }
 }
