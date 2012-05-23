@@ -6,7 +6,7 @@
   "dependencies": {
     "kick": "0.1.0"
   , "myconsole": "*"
-  , "connect": "*"
+  , "connect": "2.x"
   , "redis": "*"
   , "async": "*"
   , "connect-redis": "*"
