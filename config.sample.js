@@ -5,8 +5,8 @@ var exports = module.exports = {
   }
 , oauth2: {
     sina: {
-      key: ''
-    , secret: ''
+      key: '1442984732'
+    , secret: '77a125c3c40258297359214e9e2362d0'
     , base: 'https://api.weibo.com'
     , authorizePath: '/oauth2/authorize'
     , accessTokenPath: '/oauth2/access_token'
