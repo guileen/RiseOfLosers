@@ -19,49 +19,83 @@ Map.prototype={
 	x : 0,
 	y : 0,
 
-	tileSize : 128 ,
+	tileWidth : 256 ,
+	tileHeight : 256 ,
 
-	width : 1200,
-	height : 1200,
+	width : 2048,
+	height : 1356,
+
+	minX : 0,
+	minY : 0,
+
+	init : function(game){
+
+		this.viewWidth=game.viewWidth;
+		this.viewHeight=game.viewHeight;
+
+		this.mapCols=Math.ceil(this.width/this.tileWidth);
+		this.mapRows=Math.ceil(this.height/this.tileHeight);
+
+		this.maxX=this.width-this.viewWidth;
+		this.maxY=this.height-this.viewHeight;
+
+		this.setPos(this.x,this.y);
+
+		this.box=document.createElement("div");
+		game.viewport.appendChild(this.box);		
+		var domStyle=this.box.style;
+		ns.merger(domStyle,{
+			position : "absolute" ,
+			overflow : "auto",//hidden" ,	
+			padding : "0px" ,
+			width : this.viewWidth+"px" ,
+			height : this.viewHeight+"px" ,
+			zIndex : 10 ,
+			left : "0px",
+			top : "0px",
+			//backgroundColor : "#fff",
+			visibility : "hidden" 
+		});
+
+		this.initTiles();
+
+		this.box.style.visibility="visible";			
 
 
-	init : function(){
-		this.viewWidth=this.game.width;
-		this.viewHeight=this.game.height;
+	},
 
-		this.tileCols=Math.ceil(this.viewWidth/this.tileSize)+2;
-		this.tileRows=Math.ceil(this.viewHeight/this.tileSize)+2;
-		this.player=this.game.currentStage.player;
+	initTiles : function(){
+
+		for (var y=1;y<=this.mapRows;y++){
+			for (var x=1;x<=this.mapCols;x++){
+				var id = "tile_"+x+"_"+y;
+				var img=document.createElement("img");
+				img.src=ns.ResPool.getRes(id).src;
+				img.width=this.tileWidth;
+				img.height=this.tileHeight;
+				img.style.position="absolute";
+				img.style.left=(x-1)*this.tileWidth+"px";
+				img.style.top=(y-1)*this.tileHeight+"px";
+				this.box.appendChild(img);
+			}
+		}
+	},
+
+	setPos : function(x,y){
+		this.x=Math.max(this.minX, Math.min(this.maxX, x));
+		this.y=Math.max(this.minY, Math.min(this.maxY, y));
 	},
 
 	update : function(deltaTime ){
+	
 
-		var x=this.player.x;
-		var y=this.player.y;
-
-		var left=x-this.x;
-		var right=this.viewWidth-left;
-		var top=y-this.y;
-		var bottom=this.viewHeight-top;
-		if ( right < 300){
-			this.x=x-(this.viewWidth-300);
+	},
+	render : function(deltaTime ){
+		
+		if (this.scrolled){
+			ns.setDomPos(this.box, -this.x, -this.y);
+			this.scrolled=false;
 		}
-		if ( left < 300){
-			this.x=x-300;
-		}
-		if ( bottom < 250){
-			this.y=y-(this.viewHeight-250);
-		}
-		if ( top < 250){
-			this.y=y-250;
-		}
-
-		var maxX=this.width-this.viewWidth;
-		var maxY=this.height-this.viewHeight;
-
-		this.x=Math.max(0, Math.min(maxX, this.x));
-		this.y=Math.max(0, Math.min(maxY, this.y));
-
 
 	}
 

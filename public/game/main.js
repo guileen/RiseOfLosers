@@ -9,15 +9,10 @@ var game=new ROL.Game({
 
 	container : "container" ,
 	
-	resList : [
-		// { id : "player" , url : "./res/person.png" },
-		// { id : "flower" , url : "./res/flower.png" },
-		// { id : "milk" , url : "./res/milk.png" },
-		{ id : "tiles" , url : "./res/tiles.png" }
-	],
+	resList : [	].concat(mapImgList),
 
 	onLoading : function(loadedCount,totalCount,res){
-		console.log(loadedCount,totalCount);
+		//console.log(loadedCount,totalCount);
 		return //100;
 	},
 

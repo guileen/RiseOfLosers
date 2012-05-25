@@ -37,9 +37,13 @@ ns.Game=ns.newClass({
 		this.loader=new ns.ResLoader();
 
 		if (this.loader!=null){
-			this.loader.load(resList, 
+			var resCache=this.loader.load(resList, 
 				this._onLoad.bind(this), 
 				this._onLoading.bind(this) );
+			for (var id in resCache){
+
+				ns.ResPool.addRes(id, resCache[id]);
+			}
 		}
 	},
 	_onLoading : function(loadedCount,totalCount,res){
