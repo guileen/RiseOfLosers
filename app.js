@@ -3,7 +3,8 @@ var config = require('./config')
   , redis = require('redis')
   ;
 
-config.redisClient = redis.createClient(config.redis.port, config.redis.host);
+var redisClient = config.redisClient = redis.createClient(config.redis.port, config.redis.host);
+redisClient.select(config.redis.db || 0);
 
 /**
  * Module dependencies
