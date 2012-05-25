@@ -1,0 +1,36 @@
+html , body {
+	width : 100%;
+	height : 100%;
+	padding : 0px;
+	border : 0px;
+	margin : 0px;
+
+}
+
+body, div, canvas {
+    image-rendering: optimizeSpeed;
+    -webkit-image-rendering: optimizeSpeed;
+    -webkit-interpolation-mode: nearest-neighbor;
+}
+
+body{
+	font-size:12px;
+}
+
+#outer{height:100%; overflow:hidden; position:relative; width:100%;}
+#outer[id]{display:table; position:static;}
+#middle{position:absolute; top:50%;} /* for ie only*/
+#middle[id]{display:table-cell; vertical-align:middle; position:static;}
+
+#container {
+	position:relative;
+	margin:0 auto;
+	top:-50%;
+	border : 1px solid blue;
+	overflow : hidden;
+}
+
+#ui-pool {
+	display : none;
+	position:relative;
+}
