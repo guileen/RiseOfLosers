@@ -81,6 +81,24 @@ module.exports = function(app) {
       // what happend
   });
 
+  app.get('/api/logout', function(req, res, next) {
+      req.session.destroy(function(){
+          res.json({success: true});
+      })
+  })
+
+  app.post('/api/login', function(req, res, next) {
+      service.checkUserAuth(req.body.username, req.body.password, function(err, uid) {
+          if(err) {return res.json(500, {err : err.message});}
+          if(uid !== null) {
+            req.session.uid = uid;
+            service.loadUser(uid, sendjson(res, 403));
+          } else {
+            res.json(403, {err: 'not login'});
+          }
+      })
+  });
+
   app.get('/api/user', requireLogin, function(req, res, next) {
       var uid = req.session.uid;
       service.loadUser(uid, sendjson(res, 403));
