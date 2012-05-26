@@ -12,6 +12,10 @@
 
 
 Player.prototype={
+	id :null,
+	username :null,
+	name :null,
+
 	constructor : Player ,
 
 	workable : false ,

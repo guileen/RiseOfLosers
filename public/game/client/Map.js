@@ -29,7 +29,11 @@ Map.prototype={
 	minX : 0,
 	minY : 0,
 
+	placeList : null,
+
 	init : function(game){
+
+		this.game=game;
 
 		this.viewWidth=game.viewWidth;
 		this.viewHeight=game.viewHeight;
@@ -66,7 +70,7 @@ Map.prototype={
 	},
 
 	initTiles : function(){
-
+		this.imgList=[];
 		for (var y=1;y<=this.mapRows;y++){
 			for (var x=1;x<=this.mapCols;x++){
 				var id = "tile_"+x+"_"+y;
@@ -78,6 +82,7 @@ Map.prototype={
 				img.style.left=(x-1)*this.tileWidth+"px";
 				img.style.top=(y-1)*this.tileHeight+"px";
 				this.box.appendChild(img);
+				this.imgList.push(img);
 			}
 		}
 	},

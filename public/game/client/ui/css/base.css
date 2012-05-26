@@ -1,0 +1,320 @@
+@charset "utf-8";
+/*
+ * reset style
+ */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    font-family: "微软雅黑", Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    line-height: 15px;
+    vertical-align: baseline;
+    word-wrap: break-word;
+    word-break: break-all;
+    -webkit-text-size-adjust: none;
+    color: #333;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+em, strong {
+    font-style: normal;
+    font-weight: normal;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+input:focus, textarea:focus, :focus {
+    outline: none;
+}
+
+/*
+ * base style
+ */
+html, body {
+    background: #000;
+}
+
+a {
+    text-decoration: none;
+}
+
+.templates {
+    display: none;
+    height: 0px;
+    width: 0px;
+}
+
+.btn {
+    -webkit-transition-property: background;
+    -webkit-transition-duration: 0.5s;
+}
+
+/*
+ * main item style
+ */
+#Container {
+    height: 500px;
+    width: 500px;
+    position: absolute;
+    background: #111;
+}
+
+#CanvasLayer {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+#UserInfo {
+    width: 230px;
+    height: 80px;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    z-index : 12;
+}
+
+#UserIcon {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.8);
+}
+
+#UserIcon img {
+    width: 50px;
+    height: 50px;
+    border-radius: 4px;
+}
+
+#UserName {
+    width: 170px;
+    height: 16px;
+    position: absolute;
+    left: 60px;
+    top: 5px;
+    overflow: hidden;
+}
+
+#UserName .name-text {
+    display: block;
+    height: 16px;
+    font-size: 14px;
+    font-weight: bold;
+    float: left;
+    color: #FFF;
+    overflow: hidden;
+}
+
+#UserExp {
+    display: block;
+    width: 104px;
+    height: 16px;
+    background: rgba(255, 255, 255, 0.8);
+    position: absolute;
+    left: 60px;
+    top: 30px;
+    border-radius: 4px;
+}
+
+#CurExp {
+    display: block;
+    width: 40px;
+    height: 12px;
+    background: #09F;
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    border-radius: 2px;
+}
+
+#UserLevel {
+    height: 16px;
+    font-weight: bold;
+    position: absolute;
+    left: 170px;
+    top: 31px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+#UserLevel b {
+    font-size: 16px;
+    color: #FFF;
+}
+
+/*
+ * dialog style
+ */
+.dialog {
+    display: none;
+    position: absolute;
+    z-index: 30000;
+    border-radius: 10px;
+    background: #FFF;
+    box-shadow: 0px 0px 25px rgba(255, 255, 255, 0.8);
+    -webkit-transition-property: opacity;
+    -webkit-transition-duration: 0.5s;
+}
+
+.dialog .close {
+    padding: 3px;
+    font-size: 20px;
+    font-weight: bold;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.dialog .close:hover {
+    font-size: 20px;
+    font-weight: bold;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: #FFF;
+    background: #333;
+}
+
+#DialogShadow {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 29999;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+#MarketDialog {
+    width: 630px;
+    height: 440px;
+    left: 60px;
+    top: 30px;
+}
+
+#HospitalDialog {
+    width: 630px;
+    height: 440px;
+    left: 60px;
+    top: 30px;
+}
+
+#BankDialog {
+    width: 630px;
+    height: 440px;
+    left: 60px;
+    top: 30px;
+}
+
+#NetbarDialog {
+    width: 630px;
+    height: 440px;
+    left: 60px;
+    top: 30px;
+}
+
+#RedCrossDialog {
+    width: 630px;
+    height: 440px;
+    left: 60px;
+    top: 30px;
+}
+
+/*
+ * event-alert style
+ */
+#AlertShadow {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 59999;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.event-alert {
+    padding: 20px 30px;
+    display: none;
+    width: 360px;
+    position: absolute;
+    z-index: 60000;
+    border-radius: 10px;
+    background: #FFF;
+    box-shadow: 0px 0px 25px rgba(255, 255, 255, 0.8);
+    -webkit-transition-property: opacity;
+    -webkit-transition-duration: 0.5s;
+}
+
+.event-alert .content {
+    width: 360px;
+}
+
+.event-alert .content td {
+    padding-left: 65px;
+    font-size: 16px;
+    text-align: left;
+    vertical-align: middle;
+    line-height: 24px;
+    height: 50px;
+    overflow-y: visible;
+    background: url(http://img.baidu.com/hi/jd/j_0003.gif) no-repeat left center transparent;
+}
+
+.event-alert .btns {
+    margin: 15px auto 0px;
+    width: 150px;
+    height: 30px;
+}
+
+.event-alert .btn {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 30px;
+    width: 70px;
+    height: 30px;
+    color: #FFF;
+    border-radius: 7px;
+}
+
+.event-alert .ea-yes {
+    float: left;
+    background: #8B0;
+}
+
+.event-alert .ea-yes:hover {
+    background: #AD0;
+}
+
+.event-alert .ea-no {
+    float: right;
+    background: #B00;
+}
+
+.event-alert .ea-no:hover {
+    background: #D00;
+}
+
+.event-alert .ea-ok {
+    margin: 0 auto;
+    background: #08E;
+}
+
+.event-alert .ea-ok:hover {
+    background: #0AF;
+}

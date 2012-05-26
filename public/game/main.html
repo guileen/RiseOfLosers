@@ -19,6 +19,14 @@
 <script src="./engine/Game.js"></script> -->
 
 <script src="./client.js"></script>
+
+
+<script src="../js/jquery-1.7.2.js"></script>
+<script src="../js/restclient.js"></script>
+
+<link href="./client/ui/css/base.css" rel="stylesheet" type="text/css" />
+
+
 <script src="./common/lib/LinkedList.js"></script>
 <script src="./common/lib/AStarSearch.js"></script>
 
@@ -42,6 +50,7 @@
 <script src="./client/Animation.js"></script>
 <script src="./client/Sprite.js"></script>
 
+<script src="./client/Place.js"></script>
 <script src="./client/Map.js"></script>
 <script src="./client/Scene.js"></script>
 <script src="./client/Game.js"></script>
@@ -52,20 +61,106 @@
 <script src="./_mockdata.js"></script>
 
 
+<script src="./client/places-config.js"></script>
+<script src="./client/maps-config.js"></script>
 <script src="./client/scenes-config.js"></script>
 <script src="./client/input.js"></script>
 <script src="./main.js"></script>
 
 <script>
+	function $id(id){
+		return document.getElementById(id);
+	}
+	
 
+	function init(){
+		$id("username").focus();
+	}	
+
+	function doLogin(){
+		var username=$id("username").value;
+		var password=$id("password").value;
+
+		if (password&&username){
+			ROL.rest.post('/api/login', {username:username, password: password}, 
+				function(err, data, res) {
+					if (!err){
+						game.load();
+					}
+				});
+		}else{
+
+		}
+	}
 </script>
 
 </head>
-<body>
+<body onload="init()">
 
 <div id="outer">
   <div id="middle">
-    <div id="container"></div>
+    <div id="container">
+
+
+		<div id="home" >
+			<form onsubmit="doLogin();return false;">
+				<input type="text" value="fins" id="username" >
+				<input type="password" value="qqq" id="password" >
+				<input type="submit" value="登录" >
+			</form>
+		</div>
+
+             <div id="UserInfo">
+                <a href="javascript:void(0)" id="UserIcon"><img src="http://tp4.sinaimg.cn/1667913743/180/5632186274/1" /></a>
+                <div id="UserName">
+                    <a href="javascript:void(0)" class="name-text">搬砖の屌丝</a>
+                </div>
+                <div id="UserExp">
+                    <span id="CurExp"></span>
+                </div>
+                <span id="UserLevel">lv.<b>99</b></span>
+            </div>
+            <div id="DialogShadow">
+            </div>
+            <div class="dialog" id="MarketDialog">
+                <a class="close" href="javascript:void(0)">X</a>
+            </div>
+            <div class="dialog" id="HospitalDialog">
+                <a class="close" href="javascript:void(0)">X</a>
+            </div>
+            <div class="dialog" id="BankDialog">
+                <a class="close" href="javascript:void(0)">X</a>
+            </div>
+            <div class="dialog" id="NetbarDialog">
+                <a class="close" href="javascript:void(0)">X</a>
+            </div>
+            <div class="dialog" id="RedCrossDialog">
+                <a class="close" href="javascript:void(0)">X</a>
+            </div>
+            <div id="AlertShadow">
+            </div>
+            <div class="event-alert" id="EventAlertYN">
+                <table class="content">
+                    <td>
+                    </td>
+                </table>
+                <div class="btns">
+                    <a class="btn ea-yes" href="javascript:void(0)">YES</a>
+                    <a class="btn ea-no" href="javascript:void(0)">NO</a>
+                </div>
+            </div>
+            <div class="event-alert" id="EventAlertOK">
+                <table class="content">
+                    <td>
+                    </td>
+                </table>
+                <div class="btns">
+                    <a class="btn ea-ok" href="javascript:void(0)">OK</a>
+                </div>
+            </div>
+        </div>
+
+
   </div>
 </div>
 
@@ -73,6 +168,9 @@
 <div id="ui-pool">
 
 </div>
+
+
+<script src="./client/ui/js/base.js"></script>
 
 </body>
 

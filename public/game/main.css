@@ -25,8 +25,11 @@ body{
 #container {
 	position:relative;
 	margin:0 auto;
+	min-width : 100px;
+	min-height : 100px;
 	top:-50%;
-	border : 1px solid blue;
+	padding : 0px;
+	border : 0px solid blue;
 	
 }
 
@@ -34,3 +37,32 @@ body{
 	display : none;
 	position:relative;
 }
+
+#home {
+	position: absolute;
+	z-index : 900;
+	left : 0px;
+	top : 0px;
+	width : 760px;
+	height : 760px;
+	display : none;
+	background-image:url('./res/home.jpg');
+}
+.dialog {
+	position: absolute;
+	z-index : 100;
+	left : 0px;
+	top : 0px;
+	min-width : 100px;
+	min-height : 100px;
+	border: 2px solid #000;
+	border-color: rgba(0, 0, 0, 0.4);
+	border-radius: 15px;
+	box-shadow: 0px 0px 50px 5px rgba(255,255,255,0.5);
+	background-color: rgba(255,255,255,0.5);
+}
+
+
+
+
+

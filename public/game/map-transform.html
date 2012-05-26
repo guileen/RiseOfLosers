@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Pragma" content="no-cache" >
+<meta http-equiv="Expires" content="-1" >
+<meta http-equiv="Cache-Control" content="no-cache" >
+<title>Tools of ROL</title>
+
+<meta name="apple-touch-fullscreen" content="yes" >
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+
+<script>
+function $id(id){
+	return document.getElementById(id)
+}
+
+function init(){
+	var mapData=$id("map-data");
+
+	var objects=document.getElementsByTagName("object");
+	objects=Array.prototype.slice.call(objects,0);
+
+	var nodeList=transform(objects);
+
+	var str=JSON.stringify( nodeList );
+	$id("out-put").innerHTML=str;
+	$id("out-put").value=str;
+}
+
+function transform(objects){
+	var lines=[];
+	var nodeList=[];
+	var IDSEED=1;
+
+	objects.forEach(function(obj,idx){
+		var ox=Number(obj.getAttribute("x"));
+		var oy=Number(obj.getAttribute("y"));
+		// console.log(x,y);
+		var line=obj.getElementsByTagName("polyline")[0];
+		var points=line.getAttribute("points");
+		points=points.split(" ");
+	
+		points.forEach(function(p,i){
+			p=p.split(",");
+			var x=ox+Number(p[0]);
+			var y=oy+Number(p[1]);
+			var node={
+				id : IDSEED+"",
+				x : x,
+				y : y,
+				conn : []
+			}
+			IDSEED++;
+
+			points[i]=node;
+			
+			node.parent=points;
+			node.index=i;
+
+			nodeList.push( node );
+		});
+		lines.push(points);
+
+	})
+	
+	var len=nodeList.length;
+	for (var i=len-1;i>=0;i--){
+		var node1=nodeList[i];
+		for (var j=i;j>=0;j--){
+			var node2=nodeList[j];
+			
+			if (node1!==node2){
+				var dx=node1.x-node2.x, dy=node1.y-node2.y;
+				var dis=Math.sqrt( dx*dx+dy*dy);
+				if (dis<10){
+					var path=node1.parent;
+					var index=node1.index;
+					path[index]=node2;
+					node1.id=node2.id;
+					node1.x=node2.x;
+					node1.y=node2.y;
+					node1.conn=node2.conn;
+				}
+			}
+		}	
+	}
+
+
+	var nodeMap={}
+	lines.forEach(function(path,idx){
+		var lastNode=path[0];
+		nodeMap[lastNode.id]=lastNode;
+
+		for (var i=1;i<path.length;i++){
+			var node=path[i];
+			nodeMap[node.id]=node;
+			lastNode.conn.push(node.id);
+			node.conn.push(lastNode.id);
+			lastNode=node;
+		}
+	});
+
+	var nodeList=[];
+	for (var id in nodeMap){
+		var node=nodeMap[id];
+		delete node.parent;
+		delete node.index;
+		nodeList.push(node);
+		console.log(JSON.stringify(node))
+	}
+	return nodeList;
+}
+
+</script>
+
+</head>
+<body onload="init()">
+
+<textarea id="out-put" style="width:400px;height:300px">
+
+</textarea>
+
+<div id="map-data">
+  <object x="324" y="15">
+   <polyline points="0,0 -158,118 -215,327 -203,448 -288,736 -18,815 -112,967 -185,1067 -94,1352 176,1288 345,1506 709,1291 945,1227 1258,1279 1585,1197 1548,1000 1397,767 1221,636 1015,439 782,411 667,409 415,348 148,424 33,-3 0,3"/>
+  </object>
+  <object x="1109" y="418">
+   <polyline points="0,0 88,-406"/>
+  </object>
+  <object x="2033" y="324">
+   <polyline points="0,0 -182,52 -409,-79 -715,62"/>
+  </object>
+  <object x="2028" y="624">
+   <polyline points="-140,14 -312,150"/>
+  </object>
+  <object x="1914" y="1210">
+   <polyline points="0,0 100,310"/>
+  </object>
+  <object x="1580" y="1298">
+   <polyline points="0,0 42,226"/>
+  </object>
+  <object x="4" y="1486">
+   <polyline points="0,0 8,-6 230,-116 278,40"/>
+  </object>
+  <object x="126" y="464">
+   <polyline points="0,0 166,18 346,-24 220,172 180,368 434,372 360,586 372,840 602,696 754,654 862,672"/>
+  </object>
+  <object x="1104" y="426">
+   <polyline points="0,0 -46,156 -190,266 -196,468 -116,584 -114,712 -70,884 -14,1100"/>
+  </object>
+  <object x="562" y="840">
+   <polyline points="0,0 352,-150"/>
+  </object>
+  <object x="1108" y="428">
+   <polyline points="0,0 204,-40"/>
+  </object>
+  <object x="2044" y="624">
+   <polyline points="0,0 -158,8"/>
+  </object>
+</div>
+
+</body>
+
+</html>
