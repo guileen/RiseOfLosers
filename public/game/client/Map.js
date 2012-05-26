@@ -1,3 +1,4 @@
+
 ;(function(exports,undefined){
 	var ns=exports.ROL;
 
@@ -23,7 +24,7 @@ Map.prototype={
 	tileHeight : 256 ,
 
 	width : 2048,
-	height : 1356,
+	height : 1536,
 
 	minX : 0,
 	minY : 0,
@@ -46,10 +47,10 @@ Map.prototype={
 		var domStyle=this.box.style;
 		ns.merger(domStyle,{
 			position : "absolute" ,
-			overflow : "auto",//hidden" ,	
+			overflow : "hidden" ,	
 			padding : "0px" ,
-			width : this.viewWidth+"px" ,
-			height : this.viewHeight+"px" ,
+			width : this.width+"px" ,
+			height : this.height+"px" ,
 			zIndex : 10 ,
 			left : "0px",
 			top : "0px",
@@ -84,6 +85,7 @@ Map.prototype={
 	setPos : function(x,y){
 		this.x=Math.max(this.minX, Math.min(this.maxX, x));
 		this.y=Math.max(this.minY, Math.min(this.maxY, y));
+		this.scrolled=true;
 	},
 
 	update : function(deltaTime ){

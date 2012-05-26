@@ -16,6 +16,8 @@ var mapImgList=[];
 
 }());
 
+
+
 var SceneConfig =[
 
 	function(){
@@ -24,19 +26,62 @@ var SceneConfig =[
 			onInit : function(){
 				this.context=this.game.context;
 				this.map=new ROL.Map({
-
+					width : 2048,
+					height : 1536,
 				});
 				this.map.init(this.game);
+
+				this.finder=new ROL.PathFinder();
+				this.finder.init(nodeList);
+
+				this.player=new ROL.Player({
+					x : 100 ,
+					y : 100 ,
+					baseX : 70,
+					baseY : 70,
+					img : ROL.ResPool.getRes("player")
+				});
+				this.player.init();
+
+				var startNode=this.finder.getNode("1");
+				var endNode=this.finder.getNode("32");
+				var path = this.finder.search(startNode, endNode);
+				console.log(path)
+				this.player.setPos(startNode.pos[0], startNode.pos[1]);
+				this.player.setPath(path);
+			},
+			scrollBy : function(dx,dy){
+				var x=this.map.x+dx;
+				var y=this.map.y+dy;
+				this.map.setPos(x,y);
 			},
 
 			beforeRun : ROL.noop,
 
 			update : function(deltaTime){
 				// console.log("deltaTime ",deltaTime);
+				this.player.update(deltaTime);
+				// console.log(this.player.x,this.player.y)
 			},
 
 			render : function(deltaTime){
-				// console.log("context ", this.context);
+				var context=this.context;
+
+				this.map.render(deltaTime);
+				
+				var x=this.map.x;
+				var y=this.map.y;
+
+				context.clearRect(0,0,this.map.viewWidth, this.map.viewHeight);
+				context.save();
+				context.translate(-x,-y);
+				this.finder.drawConnLines(context);
+				
+				this.player.render(deltaTime,context);
+
+				context.restore();
+
+				// console.log("context ", context);
 			},
 
 			handleInput : ROL.noop,

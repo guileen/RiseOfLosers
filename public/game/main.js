@@ -9,7 +9,9 @@ var game=new ROL.Game({
 
 	container : "container" ,
 	
-	resList : [	].concat(mapImgList),
+	resList : [	
+		{ id : "player" , src : "./res/player.png" },
+	].concat(mapImgList),
 
 	onLoading : function(loadedCount,totalCount,res){
 		//console.log(loadedCount,totalCount);
@@ -30,8 +32,10 @@ var game=new ROL.Game({
 			var x= evt.pageX- game.pos.left;
 			var y= evt.pageY- game.pos.top;
 
-			alert([x,y])
+			// alert([x,y])
 		});
+
+		createController(this);
 	},
 
 	getSceneInstance : function(idx){

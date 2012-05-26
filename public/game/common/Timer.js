@@ -1,6 +1,9 @@
 
 
-;(function(ns, exports, undefined){
+;(function(exports, undefined){
+	var ns=exports.ROL;
+
+
 
 var Timer = ns.Timer =function(cfg){	
 

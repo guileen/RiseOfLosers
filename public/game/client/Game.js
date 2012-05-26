@@ -137,10 +137,18 @@ ns.Game=ns.newClass({
 
 	initCanvas : function(){
 	
-		this.canvas=this.canvas||document.createElement("canvas");
-		this.canvas.className="scene-canvas";
-		this.canvas.width=this.width;
-		this.canvas.height=this.height;
+		this.canvas=document.createElement("canvas");
+
+		var domStyle=this.canvas.style;
+		ns.merger(domStyle,{
+			position : "absolute" ,
+			left : "0px",
+			top : "0px",
+			zIndex : 11
+		});
+
+		this.canvas.width=this.viewWidth;
+		this.canvas.height=this.viewHeight;
 		this.context=this.canvas.getContext('2d');
 		this.viewport.appendChild(this.canvas);
 	
@@ -218,7 +226,7 @@ ns.Game=ns.newClass({
 		}
 		this.currentScene.beforeRun(this);	
 		this._playing=true;		
-		this.timer=(new Timer()).start();
+		this.timer=(new ns.Timer()).start();
 		this.run();
 	},
 	pause : ns._TODO_,
