@@ -4,7 +4,7 @@
   "private": true,
   "version": "0.0.1",
   "dependencies": {
-    "kick": "0.1.0"
+    "kick": "0.1.1"
   , "myconsole": "*"
   , "connect": "2.x"
   , "redis": "*"

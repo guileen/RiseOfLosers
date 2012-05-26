@@ -1,6 +1,7 @@
 var OAuth2 = require('oauth').OAuth2
   , config = require('../config')
   , qs = require('querystring')
+  , service = require('../lib/')
   ;
 
 module.exports = function(app) {
@@ -27,17 +28,38 @@ module.exports = function(app) {
           results.type = type;
           res.end('<script>var oa2token = ' + JSON.stringify(results) + '</script><script src="/js/loadtoken.js"></script>')
       })
+  });
+
+  app.post('/signup', function(req, res, next) {
+      var user = req.body;
+      if(user.password != user['repeat-password']) {
+        res.redirect('/login.html');
+      }
+      delete user['repeat-password'];
+      service.createUser(user, function(err, data) {
+          if(err) {return next(err);}
+          req.session.username = user.username;
+          res.redirect('/');
+      });
+  });
+
+  app.get('/logout', function(req, res, next) {
+      req.session.destroy(function(){
+          res.redirect('/');
+      })
   })
 
-  // jsonp
-  app.get('/request_message', function(req, res, next) {
-      // server will send cmd to client, let client do something
-      // ipcount
+  app.post('/login', function(req, res, next) {
+      service.checkUserAuth(req.body.username, req.body.password, function(err, uid) {
+          if(err) {return next(err);}
+          if(uid !== null) {
+            req.session.uid = uid;
+            res.redirect('/');
+          } else {
+            res.redirect('/login.html');
+          }
+      })
+  });
 
-      // cmd: msg , api
-      //  让浏览器抓取某个用户的信息
-  })
-
-  // features
-  // Who is unfollowed you?
+  require('./api')(app);
 }
