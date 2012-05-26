@@ -2,6 +2,7 @@ var OAuth2 = require('oauth').OAuth2
   , config = require('../config')
   , qs = require('querystring')
   , service = require('../lib/')
+  , User = service.User
   ;
 
 module.exports = function(app) {
@@ -36,9 +37,9 @@ module.exports = function(app) {
         res.redirect('/login.html');
       }
       delete user['repeat-password'];
-      service.createUser(user, function(err, data) {
+      User.createUser(user, function(err, uid) {
           if(err) {return next(err);}
-          req.session.username = user.username;
+          req.session.uid = uid;
           res.redirect('/');
       });
   });
@@ -50,7 +51,7 @@ module.exports = function(app) {
   })
 
   app.post('/login', function(req, res, next) {
-      service.checkUserAuth(req.body.username, req.body.password, function(err, uid) {
+      User.checkUserAuth(req.body.username, req.body.password, function(err, uid) {
           if(err) {return next(err);}
           if(uid !== null) {
             req.session.uid = uid;

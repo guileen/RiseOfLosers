@@ -1,5 +1,7 @@
 var service = require('../lib/')
   , gamedata = require('../data/gamedata')
+  , User = service.User
+  , Player = service.Player
   ;
 
 var clientdata;
@@ -88,11 +90,11 @@ module.exports = function(app) {
   })
 
   app.post('/api/login', function(req, res, next) {
-      service.checkUserAuth(req.body.username, req.body.password, function(err, uid) {
+      User.checkUserAuth(req.body.username, req.body.password, function(err, uid) {
           if(err) {return res.json(500, {err : err.message});}
           if(uid !== null) {
             req.session.uid = uid;
-            service.loadUser(uid, sendjson(res, 403));
+            User.loadUser(uid, sendjson(res, 403));
           } else {
             res.json(403, {err: 'not login'});
           }
@@ -101,12 +103,12 @@ module.exports = function(app) {
 
   app.get('/api/user', requireLogin, function(req, res, next) {
       var uid = req.session.uid;
-      service.loadUser(uid, sendjson(res, 403));
+      User.loadUser(uid, sendjson(res, 403));
   });
 
   app.get('/api/player', requireLogin, function(req, res, next) {
       var uid = req.session.uid;
-      service.loadPlayer(uid, sendjson(res, 403));
+      Player.loadPlayerData(uid, sendjson(res, 403));
   });
 
   app.get('/api/clientdata', requireLogin, function(req, res, next) {
@@ -134,10 +136,10 @@ module.exports = function(app) {
   app.get('/api/node/:id/goods', requireLogin, function(req, res, next) {
       var uid = req.session.uid;
       var nodeId = req.params.id;
-      service.loadPlayer(uid, function(err, player) {
+      Player.loadPlayerData(uid, function(err, player) {
           if(err) {return callback(err);}
 
-          if(player.currentNode != nodeId) {
+          if(player.node != nodeId) {
             // TODO user friend is there
             return res.json(403, {err: 'not allowed'});
           }
@@ -166,7 +168,7 @@ module.exports = function(app) {
 
   app.get('/api/goto/:id', requireLogin, function(req, res, next) {
       var uid = req.session.uid;
-      service.movePlayer(uid, req.params.id, function(err, data) {
+      Player.movePlayer(uid, req.params.id, function(err, data) {
           if(err) {return res.json(500, {err: err.message});}
           res.json({events: []})
       })
@@ -177,9 +179,9 @@ module.exports = function(app) {
         , goodId = req.params.goodId
         , count = req.params.count
         ;
-      service.loadPlayer(uid, function(err, player) {
+      Player.loadPlayerData(uid, function(err, player) {
           if(err) {return next(err);}
-          var shop = service.getWorld().getNode(player.pos);
+          var shop = service.getWorld().getNode(player.node);
           shop.playerBuy(player, goodId, count, sendjson(403, res));
       })
   })
@@ -190,9 +192,9 @@ module.exports = function(app) {
         , count = req.params.count
         ;
 
-      service.loadPlayer(uid, function(err, player) {
+      Player.loadPlayerData(uid, function(err, player) {
           if(err) {return next(err);}
-          var shop = service.getWorld().getNode(player.pos);
+          var shop = service.getWorld().getNode(player.node);
           shop.playerSell(player, goodId, count, sendjson(403, res));
       })
   })
