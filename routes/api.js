@@ -58,7 +58,7 @@ module.exports = function(app) {
         else
           return res.send();
       } else {
-        res.json({data: data});
+        res.json(data);
       }
     }
   }
@@ -126,7 +126,7 @@ module.exports = function(app) {
 
           var cityId = gamedata.nodes[nodeId].cityId;
           var detail = req.query.detail == '1';
-          var nodeObj = service.world.getCity(cityId).getNode(nodeId)
+          var nodeObj = service.getWorld().getCity(cityId).getNode(nodeId)
           var selling = nodeObj.getSellingGoods();
           if(detail) {
             var results = {};
@@ -146,8 +146,37 @@ module.exports = function(app) {
       })
   });
 
-  app.get('/api/goto/:id', function(req, res, next) {
-
+  app.get('/api/goto/:id', requireLogin, function(req, res, next) {
+      var uid = req.session.uid;
+      service.movePlayer(uid, req.params.id, function(err, data) {
+          if(err) {return res.json(500, {err: err.message});}
+          res.json({events: []})
+      })
   });
+
+  app.get('/api/buy/:goodId/:count', requireLogin, function(req, res, next) {
+      var uid = req.session.uid
+        , goodId = req.params.goodId
+        , count = req.params.count
+        ;
+      service.loadPlayer(uid, function(err, player) {
+          if(err) {return next(err);}
+          var shop = service.getWorld().getNode(player.pos);
+          shop.playerBuy(player, goodId, count, sendjson(403, res));
+      })
+  })
+
+  app.get('/api/sell/:goodId/:count', requireLogin, function(req, res, next) {
+      var uid = req.session.uid
+        , goodId = req.params.goodId
+        , count = req.params.count
+        ;
+
+      service.loadPlayer(uid, function(err, player) {
+          if(err) {return next(err);}
+          var shop = service.getWorld().getNode(player.pos);
+          shop.playerSell(player, goodId, count, sendjson(403, res));
+      })
+  })
 
 }
