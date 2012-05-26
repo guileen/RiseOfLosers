@@ -41,7 +41,7 @@ var game=new ROL.Game({
 				var node=finder.getNodeByPos(x,y);
 				if (node){
 					var player=scene.player;
-					if (!player.currentNode){
+					if (!player.currentNode && !player.toNode){
 						player.setNode(node);
 					}else if (!player.toNode){
 						player.toNode=node;
