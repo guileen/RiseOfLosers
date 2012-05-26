@@ -23,7 +23,7 @@ myconsole.replace();
 
 
 app.configure('development', function() {
-    app.use(connect.logger('dev'))
+    app.use(connect.logger())
     // app.use(require('connect-less')({ src: __dirname + '/public/', compress: false }));
 });
 
@@ -31,6 +31,7 @@ app
   .use(connect.favicon())
   .use(connect.static(__dirname + '/public'))
   .use(connect.cookieParser('keyboard cat'))
+  .use(connect.bodyParser())
   .use(connect.session({ secret: "keyboard cat", store: new RedisStore }))
 
 require('./routes')(app);

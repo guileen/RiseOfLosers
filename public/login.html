@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{TODO}</title>
+    <link rel="stylesheet" href="/css/bootstrap.css"/>
+  </head>
+  <body>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container"><a data-toggle="collapse" data-target=".nav-collapse" class="btn btn-navbar"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a href="/" class="brand">{TODO}</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a>
+              </li>
+            </ul>
+            <div class="navbar-text pull-right user-actions">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row login-row">
+        <div class="span6">
+          <h1>Welcome to Chop
+          </h1>
+          <div class="big-logo"><img src="/assets/img/logo.png"/>
+          </div>
+        </div>
+        <div class="span5">
+          <form id="login-box" method="post" action="/login" class="form-horizontal">
+            <fieldset>
+              <legend>Login
+              </legend>
+              <div class="control-group">
+                <label for="username" class="control-label">Username
+                </label>
+                <div class="controls">
+                  <input type="text" name="username"/>
+                </div>
+              </div>
+              <div class="control-group">
+                <label for="password" class="control-label">Password
+                </label>
+                <div class="controls">
+                  <input type="password" name="password"/>
+                </div>
+              </div>
+            </fieldset>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Sign in
+              </button>
+              <button class="btn">Reset
+              </button>
+              <button type="button" onclick="showSignup()" class="btn">Sign up
+              </button>
+            </div>
+          </form>
+          <form id="signup-box" method="post" action="/signup" style="display:none" class="form-horizontal">
+            <fieldset>
+              <legend>Sign up
+              </legend>
+              <div class="control-group">
+                <label for="username" class="control-label">Username
+                </label>
+                <div class="controls">
+                  <input type="text" name="username"/>
+                </div>
+              </div>
+              <div class="control-group">
+                <label for="password" class="control-label">Password
+                </label>
+                <div class="controls">
+                  <input type="password" name="password"/>
+                </div>
+              </div>
+              <div class="control-group">
+                <label for="password" class="control-label">Repeat Password
+                </label>
+                <div class="controls">
+                  <input type="password" name="repeat-password"/>
+                </div>
+              </div>
+            </fieldset>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Sign up
+              </button>
+              <button class="btn">Reset
+              </button>
+              <button type="button" onclick="showLogin()" class="btn">Sign in
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script src="/js/async.min.js"></script>
+    <script src="/js/jquery-1.7.1.js"></script>
+    <script src="/js/bootstrap/bootstrap-tooltip.js"></script>
+    <script src="/js/bootstrap/bootstrap-popover.js"></script>
+    <script src="/js/bootstrap/bootstrap-modal.js"></script>
+    <script>function showSignup(){
+      $('#login-box').hide();
+      $('#signup-box').show();
+    }
+    function showLogin(){
+      $('#login-box').show();
+      $('#signup-box').hide();
+    }
+    </script>
+  </body>
+</html>
