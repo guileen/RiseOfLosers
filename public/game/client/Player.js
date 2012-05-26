@@ -112,9 +112,10 @@ Player.prototype={
 			this.target=pos;
 			this.updateVelocity(x, y);
 			this.currentNode=null;
-		}else if(this.toNode){
-			//this.setNode(this.toNode);
-			
+		}
+
+		if(!pos && this.toNode){
+			this.setNode(this.toNode);
 		}
 	},
 
