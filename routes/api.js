@@ -38,4 +38,13 @@ module.exports = function(app) {
       service.loadUser(uid, sendjson(res, 403));
   });
 
+  app.get('/api/player', requireLogin, function(req, res, next) {
+      var uid = req.session.uid;
+      service.loadPlayer(uid, sendjson(res, 403));
+  });
+
+  app.get('/api/city/:id', requireLogin, function(req, res, next) {
+
+  });
+
 }
