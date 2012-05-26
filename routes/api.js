@@ -1,4 +1,5 @@
 var service = require('../lib/')
+  , http = require('http')
   , gamedata = require('../data/gamedata')
   , User = service.User
   , Player = service.Player
@@ -52,10 +53,12 @@ module.exports = function(app) {
 
   function sendjson(res, nullstatus) {
     return function(err, data) {
-      if(err) console.log(err && err.stack);
-      if(err) return res.json(500, {msg: err.message});
+      if(err) {
+        console.log(err && err.stack);
+        return res.json(500, {msg: err.message});
+      }
       if(!data) {
-        if(statusCode)
+        if(nullstatus)
           return res.json(nullstatus || 200, {msg: http.STATUS_CODES[nullstatus]});
         else
           return res.send();
@@ -108,7 +111,7 @@ module.exports = function(app) {
 
   app.get('/api/player', requireLogin, function(req, res, next) {
       var uid = req.session.uid;
-      Player.loadPlayerData(uid, sendjson(res, 403));
+      Player.loadPlayer(uid, sendjson(res, 403));
   });
 
   app.get('/api/clientdata', requireLogin, function(req, res, next) {
@@ -136,7 +139,7 @@ module.exports = function(app) {
   app.get('/api/node/:id/goods', requireLogin, function(req, res, next) {
       var uid = req.session.uid;
       var nodeId = req.params.id;
-      Player.loadPlayerData(uid, function(err, player) {
+      Player.loadPlayer(uid, function(err, player) {
           if(err) {return callback(err);}
 
           if(player.node != nodeId) {
@@ -179,7 +182,7 @@ module.exports = function(app) {
         , goodId = req.params.goodId
         , count = req.params.count
         ;
-      Player.loadPlayerData(uid, function(err, player) {
+      Player.loadPlayer(uid, function(err, player) {
           if(err) {return next(err);}
           var shop = service.getWorld().getNode(player.node);
           shop.playerBuy(player, goodId, count, sendjson(403, res));
@@ -192,7 +195,7 @@ module.exports = function(app) {
         , count = req.params.count
         ;
 
-      Player.loadPlayerData(uid, function(err, player) {
+      Player.loadPlayer(uid, function(err, player) {
           if(err) {return next(err);}
           var shop = service.getWorld().getNode(player.node);
           shop.playerSell(player, goodId, count, sendjson(403, res));
