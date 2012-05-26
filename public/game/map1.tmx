@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
 <map version="1.0" orientation="orthogonal" width="8" height="6" tilewidth="256" tileheight="256">
- <tileset firstgid="1" name="metro2020" tilewidth="256" tileheight="256">
-  <image source="res/metro2020.png" width="2048" height="1536"/>
+ <tileset firstgid="1" name="map1" tilewidth="256" tileheight="256">
+  <image source="res/map1.jpg" width="2048" height="1536"/>
  </tileset>
  <layer name="Tile Layer 1" width="8" height="6">
   <data encoding="csv">
@@ -15,29 +15,41 @@
 </data>
  </layer>
  <objectgroup name="Object Layer 1" width="8" height="6">
-  <object x="168" y="214">
-   <polyline points="0,0 102,102 306,298 392,394 388,506 432,590 532,688 588,750 588,820 596,958 640,1008 968,1014 1754,1014 1746,1136"/>
+  <object x="324" y="15">
+   <polyline points="0,0 -158,118 -215,327 -203,448 -288,736 -18,815 -112,967 -185,1067 -94,1352 176,1288 345,1506 709,1291 945,1227 1258,1279 1585,1197 1548,1000 1397,767 1221,636 1015,439 782,411 667,409 415,348 148,424 33,-3 0,3"/>
   </object>
-  <object x="476" y="200">
-   <polyline points="0,0 2,308 210,210 448,214 626,208"/>
+  <object x="1109" y="418">
+   <polyline points="0,0 88,-406"/>
   </object>
-  <object x="762" y="130">
-   <polyline points="0,0 154,148 164,284 162,422 168,504 252,586 248,684 156,750 134,752 76,752 -6,836 -10,896 -54,952 -52,1048 -58,1102 -126,1170 -240,1284"/>
+  <object x="2033" y="324">
+   <polyline points="0,0 -182,52 -409,-79 -715,62"/>
   </object>
-  <object x="208" y="826">
-   <polyline points="0,0 132,2 288,2 366,-4 388,-24 480,-112 714,-110 806,-110 980,-112 1080,-110 1134,-104 1196,-48 1314,64 1424,70 1704,72 1710,354 1710,404"/>
+  <object x="2028" y="624">
+   <polyline points="-140,14 -312,150"/>
   </object>
-  <object x="1803" y="147">
-   <polyline points="0,0 -71,2 -351,1 -481,126 -529,181 -616,265 -618,409 -620,488 -622,571 -621,671 -619,743 -670,755 -792,752 -886,753 -1110,756 -1161,752 -1239,831 -1443,833 -1592,678"/>
+  <object x="1914" y="1210">
+   <polyline points="0,0 100,310"/>
   </object>
-  <object x="1287" y="555">
-   <polyline points="0,0 86,84 118,123 119,226 120,335 52,413 -4,467 -149,471 -377,471 -450,470 -530,468 -673,465 -724,418 -785,346 -791,273 -797,163 -792,104 -733,52 -668,-6 -597,-10 -360,-7 -199,-4 -104,-3 2,3"/>
+  <object x="1580" y="1298">
+   <polyline points="0,0 42,226"/>
   </object>
-  <object x="1264" y="116">
-   <polyline points="0,0 -104,103 -159,157 -165,297 -170,430 -343,433"/>
+  <object x="4" y="1486">
+   <polyline points="0,0 8,-6 230,-116 278,40"/>
   </object>
-  <object x="108" y="83">
-   <polyline points="0,0 -18,67 41,54 54,-50 -61,-24 -64,6"/>
+  <object x="126" y="464">
+   <polyline points="0,0 166,18 346,-24 220,172 180,368 434,372 360,586 372,840 602,696 754,654 862,672"/>
+  </object>
+  <object x="1104" y="426">
+   <polyline points="0,0 -46,156 -190,266 -196,468 -116,584 -114,712 -70,884 -14,1100"/>
+  </object>
+  <object x="562" y="840">
+   <polyline points="0,0 352,-150"/>
+  </object>
+  <object x="1108" y="428">
+   <polyline points="0,0 204,-40"/>
+  </object>
+  <object x="2044" y="624">
+   <polyline points="0,0 -158,8"/>
   </object>
  </objectgroup>
 </map>

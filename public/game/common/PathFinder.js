@@ -55,7 +55,7 @@
 
 					if (!connLines[node.id+"-"+nn.id]
 						&& !connLines[nn.id+"-"+node.id]){
-						console.log(node.pos , nn.pos)
+						// console.log(node.pos , nn.pos)
 						connLines[node.id+"-"+nn.id]=[node.pos , nn.pos];
 						
 					}
@@ -87,12 +87,6 @@
 			return this.nodeMap[id];
 		},
 
-		start : function(){
-			if (this.fromNode && this.toNode){
-
-			}
-
-		},
 
 		createNode : function(_node ){
 			var node={

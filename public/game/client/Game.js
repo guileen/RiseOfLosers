@@ -23,11 +23,9 @@ ns.Game=ns.newClass({
 	loader : null ,
 
 	beforeLoad : ns.noop ,	
-	load : function(force){
 
-		this.initBaseUI();
-		this.initUI();
-		this.bindUIEvent();
+
+	load : function(force){
 		
 		if (this.beforeLoad(force)===false){
 			return false;
@@ -51,7 +49,7 @@ ns.Game=ns.newClass({
 	},
 	_onLoad : function(loadedCount,totalCount){
 
-		this.onLoad=this.onLoad===ns.noop?this.init:this.onLoad;
+		this.onLoad=this.onLoad===ns.noop?this.ready:this.onLoad;
 		return this.onLoad(loadedCount,totalCount);
 	},
 	onLoading : ns.noop,
@@ -122,7 +120,9 @@ ns.Game=ns.newClass({
 		}
 		var domStyle=this.viewport.style;
 		ns.merger(domStyle,{
-			position : "relative" ,
+			position : "absolute" ,
+			left : "0px",
+			top : "0px",
 			overflow : "hidden" ,	
 			padding : "0px" ,
 			width : this.viewWidth+"px" ,
@@ -165,7 +165,30 @@ ns.Game=ns.newClass({
 	
 	beforeInit : ns.noop ,	
 
+	zoom : 1 ,
+	setZoom : function(zoom){
+		zoom=zoom||1;
+		this.zoom=zoom;
+		this.viewport.style.width=this.viewWidth/zoom+"px";
+		this.viewport.style.height=this.viewHeight/zoom+"px";
+
+		this.viewport.style[ns.css.transformOrigin]="left top";
+		this.viewport.style[ns.css.transform]="scaleX("+zoom+") scaleY("+zoom+")";
+
+		// this.canvas.width=this.viewWidth;
+		// this.canvas.height=this.viewHeight;
+		// this.canvas.style.width=this.viewWidth*zoom+"px";
+		// this.canvas.style.height=this.viewHeight*zoom+"px";
+		// if (this.currentScene){
+		// 	this.currentScene.map.scrolled=true;
+		// }
+	},
+
 	init : function(){
+		
+		this.initBaseUI();
+		this.initUI();
+		this.bindUIEvent();
 
 		if (this.beforeInit()===false){
 			return false;
@@ -175,7 +198,6 @@ ns.Game=ns.newClass({
 			this._sleep=Math.floor(1000/this.FPS);
 		}	
 
-
 		this.scenes=[];
 
 		var Me=this;
@@ -183,13 +205,17 @@ ns.Game=ns.newClass({
 			Me.run();
 		}
 
-		this.initViewport();
-		this.initCanvas();	
-
-
-		this.initEvent();
 		this.onInit();
 	},
+
+	ready : function(){
+
+		this.initViewport();
+		this.initCanvas();	
+		this.initEvent();
+		this.onReady();
+	},
+	onReady : ns.noop,
 
 	onInit : ns.noop ,
 	initEvent : ns.noop ,

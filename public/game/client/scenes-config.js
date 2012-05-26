@@ -17,34 +17,103 @@ var mapImgList=[];
 }());
 
 
+function parsePlace(){
+
+
+}
 
 var SceneConfig =[
 
-	function(){
+	function(data){
 
 		var cfg={
+
+			data : data ,
+
+			initPlaces : function( placeList, nodeMap ){
+				var pl=this.placeList=[];
+
+				placeList.forEach(function(place, idx){
+					var id=place.id;
+					var node=nodeMap[id];
+					var p={
+						id : id,
+						name : place.name,
+						img : place.img || "place-"+id,
+						node : node
+					}
+					var place=new ROL.Place(p);
+					place.init();
+					pl.push(place);
+				})
+
+			},
+
+			getNodeByPos : function(x,y){
+				var len=this.placeList.length;
+				for (var i=0;i<len;i++){
+					var place=this.placeList[i];
+					var node=place.node;
+					var p=node.pos;
+					var dx=x-p[0],dy=y-p[1];
+
+					var dis=Math.sqrt( dx*dx+dy*dy);
+
+					if (dis<10){
+						return node;
+					}
+				}
+				return null;
+			},
+
 			onInit : function(){
-				this.context=this.game.context;
-				this.map=new ROL.Map({
-					width : 2048,
-					height : 1536,
+				var data=this.data||{};
+
+				var nodeList=data.nodeList;
+				var placeList=data.placeList;
+				var player=data.player;
+				var map=data.map;
+
+			
+				this.map=new ROL.Map( {
+					width : map.width,
+					height : map.height
 				});
 				this.map.init(this.game);
 
 				this.finder=new ROL.PathFinder();
 				this.finder.init(nodeList);
 
+				this.initPlaces(placeList, this.finder.nodeMap);
+
+
 				this.player=new ROL.Player({
-					x : 100 ,
-					y : 100 ,
-					baseX : 70,
-					baseY : 70,
+					x : player.x||0,
+					y : player.y||0,
+					baseX : player.baseX||70,
+					baseY : player.baseY||70,
 					img : ROL.ResPool.getRes("player")
 				});
 				this.player.init();
+				var cn=this.finder.getNode(player.node||player.pos);
+				if (cn){
+					this.player.setNode(cn);					
+				}
 
+				this.scrollTo(this.player.x-200,this.player.y-200);
+
+				var Me=this;
+				this.placeList.forEach( function(place){
+					place.game=Me.game;
+					place.init();
+				});
+
+				this.context=this.game.context;
 			},
-			
+			scrollTo : function(x,y){
+				this.map.setPos(x,y);
+			},
+
 			scrollBy : function(dx,dy){
 				var x=this.map.x+dx;
 				var y=this.map.y+dy;
@@ -60,18 +129,26 @@ var SceneConfig =[
 			},
 
 			render : function(deltaTime){
-				var context=this.context;
 
+				// if (!this.map.scrolled &&　!this.player.changed){
+				//  	return;
+				// }
+				var context=this.context;
 				this.map.render(deltaTime);
 				
 				var x=this.map.x;
 				var y=this.map.y;
 
 				context.clearRect(0,0,this.map.viewWidth, this.map.viewHeight);
+
 				context.save();
 				context.translate(-x,-y);
-				this.finder.drawConnLines(context);
+				// this.finder.drawConnLines(context);
 				this.finder.drawNode(context);
+
+				this.placeList.forEach( function(place){
+					place.render(deltaTime, context);
+				});
 				
 				this.player.render(deltaTime,context);
 
@@ -79,6 +156,7 @@ var SceneConfig =[
 
 				// console.log("context ", context);
 			},
+
 
 			handleInput : ROL.noop,
 

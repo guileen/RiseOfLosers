@@ -106,14 +106,20 @@ ns.ResLoader=ns.newClass({
 			loadedList.push( _res );
 			loadErrList.push( _res.src );	
 		}
-
+		console.log(totalCount)
 		for (var i=0;i<totalCount;i++){
 			var res=resList[i];
 			res.src=res.src||res.url;
 			res.id=res.id||res.src ;
-			res.type=res.type||"img";
+			res.type=res.type|| (res.fn?"fn":"img");
 
-			if (res.type==="audio"){
+			if (res.fn){
+				var cb=function(obj){
+						loadedList.push(obj);
+					}
+				res.fn(cb);
+
+			}else if (res.type==="audio"){
 				if (this.autoLoadAudio){
 					resCache[res.id]= this.loadAudio( res.src , 
 						_onLoaded, _onError	);	
@@ -127,8 +133,9 @@ ns.ResLoader=ns.newClass({
 						
 			}
 		}
-		
+							
 		function check(){
+
 			if (loadedCount+loadErrList.length>=totalCount){
 				if (onloaded){
 					setTimeout(function(){
@@ -138,8 +145,9 @@ ns.ResLoader=ns.newClass({
 			}else{
 				var _delay=0;
 				var res=loadedList[loadedCount];
-				if (res!=null){
-					loadedList[loadedCount]=null;				
+				if (res!==null){
+					loadedList[loadedCount]=null;
+
 					loadedCount++;
 					if (onloading){
 						_delay=onloading(loadedCount, totalCount, res );
