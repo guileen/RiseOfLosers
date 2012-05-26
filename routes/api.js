@@ -1,4 +1,50 @@
-var service = require('../lib/');
+var service = require('../lib/')
+  , gamedata = require('../data/gamedata')
+  ;
+
+var clientdata;
+
+function initClientJSON() {
+  var cities = {}
+    , goods = {}
+    , nodes = {}
+    ;
+
+  for(var id in gamedata.cities) {
+    var city = gamedata.cities[id];
+    cities[id] = {
+      id: city.id
+    , name: city.name
+    , nodes: []
+    }
+  }
+
+  for(var id in gamedata.nodes) {
+    var node = gamedata.nodes[id];
+    var city = cities[node.cityId];
+    var clientNode = nodes[id] = {
+      id: node.id
+    , name: node.name
+    }
+    city.nodes.push(clientNode);
+  }
+
+  for(var id in gamedata.goods) {
+    var good = gamedata.goods[id];
+    goods[id] = {
+      id: good.id
+    , name: good.name
+    }
+  }
+
+  clientdata = {
+    cities : cities
+  , goods : goods
+  , nodes : nodes
+  }
+}
+
+initClientJSON();
 
 module.exports = function(app) {
 
@@ -43,8 +89,25 @@ module.exports = function(app) {
       service.loadPlayer(uid, sendjson(res, 403));
   });
 
-  app.get('/api/city/:id', requireLogin, function(req, res, next) {
+  app.get('/api/clientdata', requireLogin, function(req, res, next) {
+      res.json(clientdata);
+  })
 
-  });
+  app.get('/api/city/:id', requireLogin, function(req, res, next) {
+      res.json(clientdata.cities[req.params.id])
+  })
+
+  app.get('/api/goods/mget', requireLogin, function(req, res, next) {
+      var results = [];
+      var ids = req.query.ids;
+      ids.split(',').forEach(function(id){
+          results.push(clientdata.goods[id]);
+      });
+      res.json(results);
+  })
+
+  app.get('/api/good/:id', requireLogin, function(req, res, next) {
+      res.json(clientdata.goods[req.params.id]);
+  })
 
 }
