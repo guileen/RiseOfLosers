@@ -12,9 +12,13 @@ var exports = module.exports = {
 , nodes: {
     '1': {
       id: 1
-    , name: '东方明珠'
+    , name: '上海火车站'
     , cityId: 2
-    // , conn: [2, 3, 4, 5]
+    }
+  , '2': {
+      id: 2
+    , name: '人民广场'
+    , cityId: 2
     }
   }
 , goods: {
@@ -45,6 +49,11 @@ var exports = module.exports = {
     , min: 1000000
     , max: 10000000
     , unit: '辆'
+    }
+  }
+, events: {
+    1: {
+
     }
   }
 

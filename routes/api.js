@@ -76,7 +76,9 @@ module.exports = function(app) {
       // ipcount
 
       // cmd: msg , api
-      //  让浏览器抓取某个用户的信息
+      // 让浏览器抓取某个用户的信息
+      //
+      // what happend
   });
 
   app.get('/api/user', requireLogin, function(req, res, next) {
@@ -91,11 +93,11 @@ module.exports = function(app) {
 
   app.get('/api/clientdata', requireLogin, function(req, res, next) {
       res.json(clientdata);
-  })
+  });
 
   app.get('/api/city/:id', requireLogin, function(req, res, next) {
       res.json(clientdata.cities[req.params.id])
-  })
+  });
 
   app.get('/api/goods/mget', requireLogin, function(req, res, next) {
       var results = [];
@@ -104,10 +106,48 @@ module.exports = function(app) {
           results.push(clientdata.goods[id]);
       });
       res.json(results);
-  })
+  });
 
   app.get('/api/good/:id', requireLogin, function(req, res, next) {
       res.json(clientdata.goods[req.params.id]);
-  })
+  });
+
+  // ?detail=1
+  app.get('/api/node/:id/goods', requireLogin, function(req, res, next) {
+      var uid = req.session.uid;
+      var nodeId = req.params.id;
+      service.loadPlayer(uid, function(err, player) {
+          if(err) {return callback(err);}
+
+          if(player.currentNode != nodeId) {
+            // TODO user friend is there
+            return res.json(403, {err: 'not allowed'});
+          }
+
+          var cityId = gamedata.nodes[nodeId].cityId;
+          var detail = req.query.detail == '1';
+          var nodeObj = service.world.getCity(cityId).getNode(nodeId)
+          var selling = nodeObj.getSellingGoods();
+          if(detail) {
+            var results = {};
+            for(var id in selling) {
+              var good = clientdata.goods[id];
+              results[id] = {
+                id: id
+              , name: good.name
+              , price: selling[id]
+              }
+            }
+            res.json(results);
+          } else {
+            res.json(selling);
+          }
+
+      })
+  });
+
+  app.get('/api/goto/:id', function(req, res, next) {
+
+  });
 
 }
