@@ -27,11 +27,34 @@ var game=new ROL.Game({
 		this.start();
 	},
 	initEvent : function(){
-
+		var Me=this;
 		ROL.addEvent( this.container , "click", function(evt){
 			var x= evt.pageX- game.pos.left;
 			var y= evt.pageY- game.pos.top;
 
+			if (Me.currentScene){
+				var scene=Me.currentScene;
+				var map=scene.map;
+				var finder=scene.finder;
+				x+=map.x;
+				y+=map.y;
+				var node=finder.getNodeByPos(x,y);
+				if (node){
+					var player=scene.player;
+					if (!player.currentNode){
+						player.setNode(node);
+					}else if (!player.toNode){
+						player.toNode=node;
+					}
+
+					if(player.currentNode && player.toNode){
+						alert(player.toNode.id)
+						var path = finder.search(player.currentNode, player.toNode);
+						player.setPath(path);
+					}
+				}
+
+			}
 			// alert([x,y])
 		});
 

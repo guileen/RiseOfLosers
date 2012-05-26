@@ -43,13 +43,8 @@ var SceneConfig =[
 				});
 				this.player.init();
 
-				var startNode=this.finder.getNode("1");
-				var endNode=this.finder.getNode("32");
-				var path = this.finder.search(startNode, endNode);
-				console.log(path)
-				this.player.setPos(startNode.pos[0], startNode.pos[1]);
-				this.player.setPath(path);
 			},
+			
 			scrollBy : function(dx,dy){
 				var x=this.map.x+dx;
 				var y=this.map.y+dy;
@@ -76,6 +71,7 @@ var SceneConfig =[
 				context.save();
 				context.translate(-x,-y);
 				this.finder.drawConnLines(context);
+				this.finder.drawNode(context);
 				
 				this.player.render(deltaTime,context);
 

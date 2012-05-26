@@ -28,6 +28,10 @@ Player.prototype={
 
 	speed : 0.08 ,
 
+	fromNode : null,
+	toNode : null,
+	currentNode : null,
+
 	init : function(){
 
 		this.path=this.path||[];
@@ -69,6 +73,16 @@ Player.prototype={
 		
 
 	},
+
+	setNode : function(node){
+		this.fromNode=node;
+		this.currentNode=node;
+		this.toNode=null;
+		this.x=node.pos[0];
+		this.y=node.pos[1];
+
+	},
+
 	setPos : function(x,y){
 		this.x=x;
 		this.y=y;
@@ -92,11 +106,15 @@ Player.prototype={
 	},
 	checkPoint : function(){
 		var pos=this.getNextPoint();
-		if ( pos && this.target==null){							
+		if ( pos && this.target==null){	
 			var x=pos[0],
 				y=pos[1];
 			this.target=pos;
 			this.updateVelocity(x, y);
+			this.currentNode=null;
+		}else if(this.toNode){
+			//this.setNode(this.toNode);
+			
 		}
 	},
 
@@ -113,6 +131,7 @@ Player.prototype={
 		this.dx=0;
 		this.dy=0;
 	},
+
 	updatePath : function(deltaTime){
 		
 		if (this.target!=null){

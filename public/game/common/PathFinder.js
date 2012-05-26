@@ -67,6 +67,22 @@
 
 		},
 
+		getNodeByPos : function(x,y){
+			var len=this.nodeList.length;
+			for (var i=0;i<len;i++){
+				var node=this.nodeList[i];
+				var p=node.pos;
+				var dx=x-p[0],dy=y-p[1];
+
+				var dis=Math.sqrt( dx*dx+dy*dy);
+
+				if (dis<10){
+					return node;
+				}
+			}
+			return null;
+		},
+
 		getNode : function(id){
 			return this.nodeMap[id];
 		},
@@ -116,16 +132,28 @@
     		return successors; 
 			
 		},
+		drawNode : function(context){
+			this.nodeList.forEach(function(node){
+				var p=node.pos;
+				context.beginPath();
+				context.arc(p[0], p[1], 10, 0, 2 * Math.PI, false);
+				context.fillStyle="blue";	
+				context.fill();	
+				context.closePath();		
+			})
+
+		},
 
 		drawConnLines : function(context){
+
 			for (var id in this.connLines){
 				var line=this.connLines[id];
 				var p1=line[0], p2=line[1];
 				context.lineWidth=10;
-				context.strokeStyle="red"
 				context.beginPath();
 				context.moveTo( p1[0] ,p1[1] );
 				context.lineTo( p2[0] ,p2[1] );
+				context.strokeStyle="red"
 				context.stroke();
 				context.closePath();
 			}
