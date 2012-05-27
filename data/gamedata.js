@@ -97,7 +97,7 @@ var exports = module.exports = {
     }
   , 2: {
       id: 2
-    , name: 'hiPhone 4S'
+    , name: 'HiPhone 4S'
     , min: 300
     , max: 3000
     , unit: '箱'
@@ -115,6 +115,28 @@ var exports = module.exports = {
     , min: 1000000
     , max: 10000000
     , unit: '辆'
+    }
+  , 5: {
+      id: 5
+    , name: '地沟油'
+    , min: 2000
+    , max: 20000
+    , unit: '吨'
+    }
+  , 6: {
+      id: 6
+    , name: '苏丹红着色剂'
+    , min: 3000
+    , max: 30000
+    , unit: '公斤'
+    }
+  , 7: {
+      id: 7
+    , name: '假中华香烟'
+    , min: 500
+    , max: 3000
+    , unit: '条'
+
     }
   }
 , events: {
