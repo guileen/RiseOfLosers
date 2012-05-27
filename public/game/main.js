@@ -164,7 +164,7 @@ var game=new ROL.Game({
 	showQuickBar : function(x,y){
 		x=x-this.currentScene.map.x
 		y=y-this.currentScene.map.y
-		x-=50;
+		x-=40;
 		y+=50;
 		$id("quickbar").x=x||0;
 		$id("quickbar").y=y||0;

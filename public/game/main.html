@@ -122,7 +122,7 @@
 </div>
 <div id="quickbar">
 <!-- <div class="btn-group"> -->
-  <button class="btn btn-large" onclick="game.buy()" >交易</button>
+  <button class="btn btn-primary btn-large" onclick="game.buy()" ><strong style="color:#fff;font-size:16px;">交易</strong></button>
   <!-- <button class="btn btn-large" onclick="game.sell()" >卖出</button> -->
 <!-- </div> -->
 </div>
@@ -144,27 +144,27 @@
             <div class="dialog" id="PlaceDialog">
               <a class="close" href="javascript:dui.placeDialog.close();void(0)">X</a>
               <span class="menu-title">待售商品</span>
-              <div>
+              <div style="margin-left:10px;">
                   <script id="tpl-good-item" type="template">
                 <div style="padding:5px;padding-left:10px;font-size:16px;">
                     <span style="font-size:16px;display:inline-block;width:150px">{name}</span>
                     <span style="font-size:16px;display:inline-block;width:100px">{price}元</span>
                     <span style="font-size:16px;display:inline-block;">
                         <input class="count" value="0" style="width:50px"/>
-                        <button class="btn-buy">Buy</button>
+                        <button class="btn-buy btn btn-primary">Buy</button>
                     </span>
                     </div>
                   </script>
               </div>
 <hr>
-              <div >
+              <div style="margin-left:10px;">
               <script id="tpl-my-item" type="template">
                 <div style="padding-left:5px;padding-left:10px;font-size:16px;">
                     <span style="font-size:16px;display:inline-block;width:150px">{name}</span>
                     <span style="font-size:16px;display:inline-block;width:100px">{price}元</span>
                     <span style="font-size:16px;display:inline-block;">
                         <input class="count" value="{count}" style="width:50px"/>
-                        <button class="btn-sell">Sell</button>
+                        <button class="btn-sell btn btn-primary">Sell</button>
                     </span>
                     </div>
               </script>

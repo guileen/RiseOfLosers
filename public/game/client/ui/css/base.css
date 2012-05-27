@@ -363,6 +363,7 @@ a {
     margin-left : 50%;
     top: 50px;
     z-index : 70000;
+    background-color: rgba(255,240,220 ,0.85);
 }
 
 #quickbar {
