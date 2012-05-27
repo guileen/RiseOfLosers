@@ -367,8 +367,8 @@ a {
 
 #quickbar {
     display : none ;
-    height: 60;
-    width: 180;
+    height: 50px;
+    width: 140px;
     border : 0px solid red;
     overflow : hidden;
     /*top: 50px;*/
@@ -385,9 +385,10 @@ a {
     position: absolute;
     text-shadow: 0px 0px 25px rgba(255,255,255,0.7);
     position: absolute;
-    background-color : rgba(255,255,255,0.2);
-    padding : 4px;
+    background-color : rgba(0,0,0,0.6);
+    padding : 10px;
     border-radius : 8px;
+    text-align : right;
     z-index : 999999 ;
     display : none;
     min-width : 100px;
