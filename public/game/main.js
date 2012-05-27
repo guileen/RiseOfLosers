@@ -1,6 +1,4 @@
 
-console.log(ROL)
-
 
 // /api/user, 
 // 		{"username":"fins","id":"2"}
@@ -86,6 +84,7 @@ var game=new ROL.Game({
 		// 	}
 		// },
 		{ id : "player" , src : "./res/player.png" },
+		{ id : "player-move" , src : "./res/player-move.png" },
 		{ id : "defalut-place" , src : "./res/defalut-place.png" },
 	].concat(mapImgList),
 
@@ -133,6 +132,19 @@ var game=new ROL.Game({
 		$id("quickbar").style.left=x+"px"
 		$id("quickbar").style.top=y+"px"
 		$id("quickbar").style.display="block";
+	},
+	buy : function(){
+		var player=this.currentScene.player;
+		var node=player.currentNode;
+		var goods=node.data;
+		dui.placeDialog();
+
+	},
+	sell : function(){
+		var player=this.currentScene.player;
+		var node=player.node;
+		var items=player.items;
+
 	},
 	initEvent : function(){
 		var Me=this;

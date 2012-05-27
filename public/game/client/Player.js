@@ -38,6 +38,15 @@ Player.prototype={
 
 	init : function(){
 
+		this.anim1=new ns.Animation({
+			img : ROL.ResPool.getRes("player"),
+			frames : [
+				{}
+			]
+
+		});
+
+
 		this.path=this.path||[];
 		var last=this.last={
 			vx : 0,
@@ -132,10 +141,12 @@ Player.prototype={
 					var good=data[id];
 
 				}
+				node.data=data;
 				game.showQuickBar(node.pos[0],node.pos[1]);
 			}else{
 				console.log("goods",err);
 			}
+
 			Me.setNode(node);
 			Me.moving=false;
 

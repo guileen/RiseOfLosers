@@ -362,6 +362,7 @@ a {
     left: -150px;
     margin-left : 50%;
     top: 50px;
+    z-index : 70000;
 }
 
 #quickbar {
@@ -371,7 +372,7 @@ a {
     border : 0px solid red;
     overflow : hidden;
     /*top: 50px;*/
-       position: absolute;
+    position: absolute;
     z-index: 60000;
  
 }

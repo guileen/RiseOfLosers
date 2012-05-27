@@ -121,8 +121,8 @@
 </div>
 <div id="quickbar">
 <div class="btn-group">
-  <button class="btn btn-large">购买</button>
-  <button class="btn btn-large">卖出</button>
+  <button class="btn btn-large" onclick="game.buy()" >购买</button>
+  <button class="btn btn-large" onclick="game.sell()" >卖出</button>
 </div>
 </div>
 
@@ -136,10 +136,12 @@
     </div>
     <span id="UserLevel">lv.<b>99</b></span>
 </div>
+
             <div id="DialogShadow">
             </div>
             <div class="dialog" id="PlaceDialog">
-					<span class="menu-title">Menu</span>
+	            	<a class="close" href="javascript:dui.placeDialog.hide();void(0)">X</a>
+					<span class="menu-title">待售商品</span>
 					<a href="javascript:gContinue();" class="menu-item">Goto</a>
 					<a href="javascript:gExit();" class="menu-item">Close</a>
             </div>

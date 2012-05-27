@@ -99,10 +99,10 @@ var SceneConfig =[
 				if (cn){
 					console.log("arr 0")
 					this.player.onArrive(cn);
-					console.log(cn.pos)
+					// console.log(cn.pos)
 					setTimeout(function(){
-						game.showQuickBar(cn.pos[0],cn.pos[1])					
 						game.currentScene.scrollTo(cn.pos[0]-200,cn.pos[1]-200);
+						game.showQuickBar(cn.pos[0],cn.pos[1])					
 					},100)
 				}
 
