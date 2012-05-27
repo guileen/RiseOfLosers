@@ -366,8 +366,10 @@ a {
 
 #quickbar {
     display : none ;
-    height: 300px;
-    width: 300px;
+    height: 50;
+    width: 150;
+    border : 0px solid red;
+    overflow : hidden;
     /*top: 50px;*/
        position: absolute;
     z-index: 60000;

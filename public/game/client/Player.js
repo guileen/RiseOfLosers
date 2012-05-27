@@ -138,6 +138,7 @@ Player.prototype={
 			}
 			console.log("arr",node.id)
 			Me.setNode(node);
+			
 		});
 	},
 
