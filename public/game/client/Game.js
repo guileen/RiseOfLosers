@@ -85,7 +85,7 @@ ns.Game=ns.newClass({
 			height : this.height+"px"
 		});	
 
-		this.pos=this.container.getBoundingClientRect();
+		
 
 
 	},
@@ -209,6 +209,8 @@ ns.Game=ns.newClass({
 	},
 
 	ready : function(){
+		
+		this.pos=this.container.getBoundingClientRect();
 
 		this.initViewport();
 		this.initCanvas();	
