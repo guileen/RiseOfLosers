@@ -121,10 +121,10 @@
       </div>
 </div>
 <div id="quickbar">
-<div class="btn-group">
-  <button class="btn btn-large" onclick="game.buy()" >购买</button>
-  <button class="btn btn-large" onclick="game.sell()" >卖出</button>
-</div>
+<!-- <div class="btn-group"> -->
+  <button class="btn btn-large" onclick="game.buy()" >交易</button>
+  <!-- <button class="btn btn-large" onclick="game.sell()" >卖出</button> -->
+<!-- </div> -->
 </div>
 
  <div id="UserInfo" style="display:none">
@@ -147,16 +147,16 @@
               <table>
               <script id="tpl-good-item" type="template">
                 <tr>
-                <td>
+                <td width="40%">
                 <span>{name}</span>
                 </td>
-                <td>
+                <td width="25%">
                 <span>{price}元</span>
                 </td>
-                <td>
-                <input class="count" value="0"/>
+                <td width="10%">
+                <input class="count" value="0" style="width:50px"/>
                 </td>
-                <td>
+                <td width="25%">
                 <button class="btn-buy">Buy</button>
                 </td>
                 </tr>
@@ -166,16 +166,16 @@
               <table>
               <script id="tpl-my-item" type="template">
                 <tr>
-                <td>
+                <td width="40%">
                 <span>{name}</span>
                 </td>
-                <td>
+                <td width="25%">
                 <span>{price}元</span>
                 </td>
-                <td>
-                <input class="count" value="{count}"/>
+                <td width="10%">
+                <input class="count" value="{count}" style="width:50px"/>
                 </td>
-                <td>
+                <td width="25%">
                 <button class="btn-sell">Sell</button>
                 </td>
                 </tr>
