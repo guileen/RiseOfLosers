@@ -358,8 +358,8 @@ a {
 
 #PlaceDialog {
     height: 300px;
-    width: 300px;
-    left: -150px;
+    width: 450px;
+    left: -225px;
     margin-left : 50%;
     top: 50px;
     z-index : 70000;

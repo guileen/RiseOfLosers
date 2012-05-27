@@ -144,43 +144,31 @@
             <div class="dialog" id="PlaceDialog">
               <a class="close" href="javascript:dui.placeDialog.close();void(0)">X</a>
               <span class="menu-title">待售商品</span>
-              <table>
-              <script id="tpl-good-item" type="template">
-                <tr>
-                <td width="40%">
-                <span>{name}</span>
-                </td>
-                <td width="25%">
-                <span>{price}元</span>
-                </td>
-                <td width="10%">
-                <input class="count" value="0" style="width:50px"/>
-                </td>
-                <td width="25%">
-                <button class="btn-buy">Buy</button>
-                </td>
-                </tr>
-              </script>
-              </table>
-
-              <table>
+              <div style="margin-bottom:5px;">
+                  <script id="tpl-good-item" type="template">
+                <div style="padding:5px;padding-left:10px;font-size:16px;">
+                    <span style="font-size:16px;display:inline-block;width:150px">{name}</span>
+                    <span style="font-size:16px;display:inline-block;width:100px">{price}元</span>
+                    <span style="font-size:16px;display:inline-block;">
+                        <input class="count" value="0" style="width:50px"/>
+                        <button class="btn-buy">Buy</button>
+                    </span>
+                    </div>
+                  </script>
+              </div>
+<hr>
+              <div >
               <script id="tpl-my-item" type="template">
-                <tr>
-                <td width="40%">
-                <span>{name}</span>
-                </td>
-                <td width="25%">
-                <span>{price}元</span>
-                </td>
-                <td width="10%">
-                <input class="count" value="{count}" style="width:50px"/>
-                </td>
-                <td width="25%">
-                <button class="btn-sell">Sell</button>
-                </td>
-                </tr>
+                <div style="padding-left:5px;padding-left:10px;font-size:16px;">
+                    <span style="font-size:16px;display:inline-block;width:150px">{name}</span>
+                    <span style="font-size:16px;display:inline-block;width:100px">{price}元</span>
+                    <span style="font-size:16px;display:inline-block;">
+                        <input class="count" value="{count}" style="width:50px"/>
+                        <button class="btn-buy">Sell</button>
+                    </span>
+                    </div>
               </script>
-              </table>
+              </div>
               <!-- <a href="javascript:gContinue();" class="menu-item">Goto</a> -->
               <!-- <a href="javascript:gExit();" class="menu-item">Close</a> -->
             </div>
