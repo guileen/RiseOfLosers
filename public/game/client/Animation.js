@@ -59,6 +59,7 @@
 				return;
 			}
 			//判断当前Frame是否已经播放完成, 
+
 			if (this.currentFramePlayed>=this.currentFrame.duration){
 				//播放下一帧
 				

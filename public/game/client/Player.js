@@ -38,14 +38,41 @@ Player.prototype={
 
 	init : function(){
 
+		this.baseX=130
+		this.baseY=130
+
 		this.anim1=new ns.Animation({
 			img : ROL.ResPool.getRes("player"),
-			frames : [
-				{}
-			]
+			// img : "player" ,
+			getFramesConfig : function(){
+				return   [
+					{x : 0, y : 0, w : 260, h : 260, duration : 100},
+					{x : 260, y : 0, w : 260, h : 260, duration : 100}
+				]
+			}
+			
 
 		});
+		this.anim1.init();
+		this.anim1.setFrame(0);
 
+		this.anim2=new ns.Animation({
+			img : ROL.ResPool.getRes("player-move"),
+			// img : "player" ,
+			getFramesConfig : function(){
+				return   [
+					{x : 0, y : 0, w : 260, h : 260, duration : 100},
+					{x : 260, y : 0, w : 260, h : 260, duration : 100},
+					{x : 520, y : 0, w : 260, h : 260, duration : 100},
+					{x : 780, y : 0, w : 260, h : 260, duration : 100},
+
+				]
+			}
+			
+
+		});
+		this.anim2.init();
+		this.anim2.setFrame(0);
 
 		this.path=this.path||[];
 		var last=this.last={
@@ -67,7 +94,15 @@ Player.prototype={
 			this.updatePos();
 		}
 		this.checkPoint();
+
+		if (this.moving){
+			this.anim=this.anim2;
+		}else{
+			this.anim=this.anim1;
+
+		}
 		
+		this.anim.update(deltaTime)
 	},
 
 	updateMotion : function(deltaTime){
@@ -214,9 +249,27 @@ Player.prototype={
 			drawCircle(context,c[0],c[1],c[2],c[3] );
 		}
 	
+
 		context.save();
-		context.translate(this.x-this.baseX,this.y-this.baseY);
-		context.drawImage(this.img, 0,0);
+
+		context.translate(this.x,this.y);
+		var anim=this.anim;
+		var f=anim.currentFrame;
+		var img=anim.img;
+		var iX=f.x , iY=f.y, iW=f.w, iH=f.h , w=f.w, h=f.h ;
+// console.log(iX,iY,iW,iH, 0,0, w, h)
+		var dx=this.x-this.lastX;
+		if (dx>1){
+			context.scale(-1,1);
+		}else{
+			
+		}
+		context.translate(-this.baseX,-this.baseY);
+		context.drawImage(img,iX,iY,iW,iH, 0,0, w, h);
+
+		// context.drawImage(anim.img, 0,0,f.w,f.h,f.x,f.y,f.w,f.h);
+
+		
 		context.restore();
 	}
 };
