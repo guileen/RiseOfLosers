@@ -2,6 +2,7 @@ var OAuth2 = require('oauth').OAuth2
   , config = require('../config')
   , qs = require('querystring')
   , service = require('../lib/')
+  , weibo = require('../lib/weibo')
   , User = service.User
   ;
 
@@ -26,6 +27,8 @@ module.exports = function(app) {
       console.log(code)
       oa2.getOAuthAccessToken(code, {redirect_uri: req.fulluri('/login/oauth2/code?type=' + type)}, function(err, access_token, refresh_token, results) {
           if(err) {return next(err);}
+          console.log(results);
+          weibo.getUser(access_token, results.uid, console.ifError)
           results.type = type;
           res.end('<script>var oa2token = ' + JSON.stringify(results) + '</script><script src="/js/loadtoken.js"></script>')
       })
