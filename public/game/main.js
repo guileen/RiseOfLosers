@@ -23,8 +23,8 @@ ROL.rest = new RestClient({
 
 var game=new ROL.Game({
 
-	width : 750 ,
-	height : 500 ,
+	width : 900 ,
+	height : 540 ,
 	FPS : 30 ,
 
 	rest : ROL.rest ,
@@ -116,6 +116,7 @@ var game=new ROL.Game({
 	onReady : function(){
 		this.start();
 		$id("UserInfo").style.display="block";
+		$id("UserMoney").style.display="block";
 		// this.setZoom(0.75);
 	},
 
