@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
+<map version="1.0" orientation="orthogonal" width="7" height="5" tilewidth="256" tileheight="256">
+ <tileset firstgid="1" name="地图2" tilewidth="256" tileheight="256">
+  <image source="res/地图2.png" width="1792" height="1280"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="7" height="5">
+  <data encoding="csv">
+1,2,3,4,5,6,7,
+8,9,10,11,12,13,14,
+15,16,17,18,19,20,21,
+22,23,24,25,26,27,28,
+29,30,31,32,33,34,35
+</data>
+ </layer>
+ <objectgroup name="Object Layer 1" width="7" height="5">
+  <object x="106" y="386">
+   <polyline points="0,0 -26,118 -80,234 48,258 164,306 40,472 24,586 98,756 342,694 492,888 796,716 1058,648 1178,654 1288,694 1438,674 1586,606 1498,412 1406,264 1222,106 1024,-22 864,-40 592,-82 304,-28 200,-356 86,-330 4,-154"/>
+  </object>
+  <object x="112" y="236">
+   <polyline points="0,0 -6,154 130,172 298,120 196,270 150,460 378,460 310,666 338,844 518,736 756,692 788,860"/>
+  </object>
+  <object x="1012" y="80">
+   <polyline points="0,0 -36,268 -96,416 -216,488 -370,514 -522,618"/>
+  </object>
+  <object x="800" y="572">
+   <polyline points="0,0 0,174 62,266 72,352"/>
+  </object>
+  <object x="1124" y="360">
+   <polyline points="0,0 64,-66 280,-148 536,-54"/>
+  </object>
+  <object x="1764" y="1232">
+   <polyline points="0,0 -70,-238"/>
+  </object>
+  <object x="1392" y="1086">
+   <polyline points="0,0 26,150"/>
+  </object>
+  <object x="1300" y="768">
+   <polyline points="0,0 278,-6"/>
+  </object>
+ </objectgroup>
+</map>
