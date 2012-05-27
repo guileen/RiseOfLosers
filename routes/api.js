@@ -11,6 +11,7 @@ function initClientJSON() {
   var cities = {}
     , goods = {}
     , nodes = {}
+    , allgoods = []
     ;
 
   for(var id in gamedata.cities) {
@@ -40,10 +41,14 @@ function initClientJSON() {
     }
   }
 
+  for(var id in goods) {
+    allgoods.push(goods[id]);
+  }
   clientdata = {
     cities : cities
   , goods : goods
   , nodes : nodes
+  , allgoods : allgoods
   }
 }
 
@@ -123,12 +128,16 @@ module.exports = function(app) {
   });
 
   app.get('/api/goods/mget', requireLogin, function(req, res, next) {
-      var results = [];
       var ids = req.query.ids;
-      ids.split(',').forEach(function(id){
-          results.push(clientdata.goods[id]);
-      });
-      res.json(results);
+      if(ids == 'all') {
+        res.json(clientdata.allgoods);
+      } else {
+        var results = [];
+        ids.split(',').forEach(function(id){
+            results.push(clientdata.goods[id]);
+        });
+        res.json(results);
+      }
   });
 
   app.get('/api/good/:id', requireLogin, function(req, res, next) {
