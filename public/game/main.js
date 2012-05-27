@@ -34,6 +34,43 @@ var game=new ROL.Game({
 	resList : [	
 		{ fn : function(cb){
 
+        async.parallel([
+            function(callback) {
+              game.rest.get('/api/player',  function(err, data, res) {
+                  if(err) return callback(err);
+                  Datastore.player = data;
+                  var cityId=data.city;
+                  game.rest.get('/api/city/'+cityId,  function(err, data, res) {
+                      if(err) return callback(err);
+                      Datastore.city=data;
+                      Datastore.placeList=data.nodes;
+                      callback();
+                  });
+              });
+            }
+
+          , function(callback) {
+              game.rest.get('/game/data/map1.json',  function(err, data, res) {
+                  Datastore.nodeList=data;
+                  callback(err);
+              });
+            }
+
+          , function(callback) {
+              game.rest.get('/api/goods/mget', {ids: 'all'}, function(err, data) {
+                  if(err) {return callback(err);}
+                  var goods = Datastore.goods = {};
+                  data.forEach(function(good){
+                      goods[good.id] = good;
+                  })
+                  callback();
+              })
+            }
+          ], function(err) {
+            cb(true);
+        });
+
+      /*
 				game.rest.get('/api/player',  function(err, data, res) {
 					console.log(err);
 					if (!err){
@@ -58,6 +95,7 @@ var game=new ROL.Game({
 							});
 					}
 				});
+        */
 			}
 		},
 		// { fn : function(cb){
@@ -134,12 +172,108 @@ var game=new ROL.Game({
 		$id("quickbar").style.top=y+"px"
 		$id("quickbar").style.display="block";
 	},
-	buy : function(){
-		var player=this.currentScene.player;
-		var node=player.currentNode;
-		var goods=node.data;
-		dui.placeDialog();
 
+  refreashShop : function(callback) {
+
+    var self = this;
+		var player=this.currentScene.player;
+    var node=player.currentNode;
+
+    $id("money").innerHTML=Math.floor(Datastore.player.money);
+
+    game.rest.get('/api/node/'+ node.id + '/goods', function(err, goods) {
+        if(err) {return console(err);}
+        console.log('goods', goods);
+        $('#tpl-good-item').render('flush')
+        for(var id in goods) {
+          (function(id){
+              var good = Datastore.goods[id];
+              good.price = Math.floor(goods[id]);
+              console.log('good', good)
+              var $row = $('#tpl-good-item').render(good).show();
+              $row.find('.btn-buy').click(function(){
+                  var count = $row.find('.count').val();
+                  game.rest.post('/api/buy', {item: id, count: count}, function(err, player){
+                      console.log('buy', err, player);
+                      Datastore.player = player;
+                      self.refreashShop();
+                  })
+              })
+          })(id);
+        }
+
+        var player = Datastore.player;
+        var hasItems = player.items;
+        $('#tpl-my-item').render('flush')
+        for(var id in hasItems) {
+          (function(id){
+              var good = Datastore.goods[id];
+              good.count = hasItems[id];
+              good.price = Math.floor(goods[id]);
+              console.log('good', good);
+              var $row = $('#tpl-my-item').render(good).show();
+              $row.find('.btn-sell').click(function(){
+                  var count = $row.find('.count').val();
+                  game.rest.post('/api/sell', {item: id, count: count}, function(err, player){
+                      console.log('sell', err, player);
+                      Datastore.player = player;
+                      self.refreashShop();
+                  })
+              });
+          })(id);
+        }
+
+        callback();
+    })
+  },
+
+	buy : function(){
+    this.refreashShop(function(){
+        dui.placeDialog();
+    });
+		// var player=this.currentScene.player;
+    // console.log('player', player);
+    // var node=player.currentNode;
+    // game.rest.get('/api/node/'+ node.id + '/goods', function(err, goods) {
+        // if(err) {return console(err);}
+        // console.log('goods', goods);
+        // $('#tpl-good-item').render('flush')
+        // for(var id in goods) {
+          // (function(id){
+              // var good = Datastore.goods[id];
+              // good.price = Math.floor(goods[id]);
+              // console.log('good', good)
+              // var $row = $('#tpl-good-item').render(good).show();
+              // $row.find('.btn-buy').click(function(){
+                  // var count = $row.find('.count').val();
+                  // game.rest.post('/api/buy', {item: id, count: count}, function(err, count){
+                      // console.log('buy', err, count);
+                  // })
+              // })
+          // })(id);
+        // }
+
+        // var player = Datastore.player;
+        // var hasItems = player.items;
+        // $('#tpl-my-item').render('flush')
+        // for(var id in hasItems) {
+          // (function(id){
+              // var good = Datastore.goods[id];
+              // good.count = hasItems[id];
+              // good.price = Math.floor(goods[id]);
+              // console.log('good', good);
+              // var $row = $('#tpl-my-item').render(good).show();
+              // $row.find('.btn-sell').click(function(){
+                  // var count = $row.find('.count').val();
+                  // game.rest.post('/api/sell', {item: id, count: count}, function(err, count){
+                      // console.log('sell', err, count);
+                  // })
+              // });
+          // })(id);
+        // }
+
+        // dui.placeDialog();
+    // })
 	},
 	sell : function(){
 		var player=this.currentScene.player;
@@ -210,7 +344,9 @@ var game=new ROL.Game({
 
 });
 
-ROL.addEvent(window, "load", function(){
+// ROL.addEvent(window, "load", function(){
+
+$(function(){
 
 	game.init();
 
@@ -222,4 +358,5 @@ ROL.addEvent(window, "load", function(){
         game.load();
       }
   })
-});
+})
+// });

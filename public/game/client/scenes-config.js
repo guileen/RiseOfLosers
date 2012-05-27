@@ -91,7 +91,7 @@ var SceneConfig =[
 				this.player.img = ROL.ResPool.getRes("player");
 
 				this.player.init();
-				$id("money").innerHTML=player.money;
+				$id("money").innerHTML=Math.floor(player.money);
 				$id("displayname").innerHTML="大城小胖";//player.name
 				var cn=this.finder.getNode(player.node||player.pos);
 				if (cn){

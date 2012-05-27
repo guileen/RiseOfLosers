@@ -18,11 +18,12 @@
 <script src="./engine/Loader.js"></script>
 <script src="./engine/Game.js"></script> -->
 
-<script src="./client.js"></script>
-
-
 <script src="../js/jquery-1.7.2.js"></script>
+<script src="../js/async.min.js"></script>
 <script src="../js/restclient.js"></script>
+<script src="../js/render.js"></script>
+
+<script src="./client.js"></script>
 
 <link href="./client/ui/css/base.css" rel="stylesheet" type="text/css" />
 
@@ -141,10 +142,47 @@
             <div id="DialogShadow">
             </div>
             <div class="dialog" id="PlaceDialog">
-	            	<a class="close" href="javascript:dui.placeDialog.hide();void(0)">X</a>
-					<span class="menu-title">待售商品</span>
-					<a href="javascript:gContinue();" class="menu-item">Goto</a>
-					<a href="javascript:gExit();" class="menu-item">Close</a>
+              <a class="close" href="javascript:dui.placeDialog.close();void(0)">X</a>
+              <span class="menu-title">待售商品</span>
+              <table>
+              <script id="tpl-good-item" type="template">
+                <tr>
+                <td>
+                <span>{name}</span>
+                </td>
+                <td>
+                <span>{price}元</span>
+                </td>
+                <td>
+                <input class="count" value="0"/>
+                </td>
+                <td>
+                <button class="btn-buy">Buy</button>
+                </td>
+                </tr>
+              </script>
+              </table>
+
+              <table>
+              <script id="tpl-my-item" type="template">
+                <tr>
+                <td>
+                <span>{name}</span>
+                </td>
+                <td>
+                <span>{price}元</span>
+                </td>
+                <td>
+                <input class="count" value="{count}"/>
+                </td>
+                <td>
+                <button class="btn-sell">Sell</button>
+                </td>
+                </tr>
+              </script>
+              </table>
+              <!-- <a href="javascript:gContinue();" class="menu-item">Goto</a> -->
+              <!-- <a href="javascript:gExit();" class="menu-item">Close</a> -->
             </div>
 
             <div class="dialog" id="MarketDialog">
