@@ -177,10 +177,10 @@ module.exports = function(app) {
       })
   });
 
-  app.get('/api/buy', requireLogin, function(req, res, next) {
+  app.post('/api/buy', requireLogin, function(req, res, next) {
       var uid = req.session.uid
-        , itemId = req.query.item
-        , count = req.query.count
+        , itemId = req.body.item
+        , count = req.body.count
         ;
       Player.loadPlayer(uid, function(err, player) {
           if(err) {return next(err);}
@@ -189,10 +189,10 @@ module.exports = function(app) {
       })
   })
 
-  app.get('/api/sell', requireLogin, function(req, res, next) {
+  app.post('/api/sell', requireLogin, function(req, res, next) {
       var uid = req.session.uid
-        , itemId = req.query.item
-        , count = req.query.count
+        , itemId = req.body.item
+        , count = req.body.count
         ;
 
       Player.loadPlayer(uid, function(err, player) {
