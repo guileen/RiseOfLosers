@@ -196,10 +196,13 @@ var game=new ROL.Game({
 ROL.addEvent(window, "load", function(){
 
 	game.init();
-	$id("username").focus();
-	setTimeout(function(){
 
-		doLogin();
-		
-	},10)
+  game.rest.get('/api/player', function(err, player) {
+      if(err) {
+        $id("username").focus();
+        // doLogin();
+      } else {
+        game.load();
+      }
+  })
 });
