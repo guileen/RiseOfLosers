@@ -66,7 +66,8 @@ Map.prototype={
 
 		this.box.style.visibility="visible";			
 
-
+		this.lastX=this.x;
+		this.lastY=this.y;
 	},
 
 	initTiles : function(){
@@ -88,6 +89,8 @@ Map.prototype={
 	},
 
 	setPos : function(x,y){
+		this.lastX=this.x;
+		this.lastY=this.y;
 		this.x=Math.max(this.minX, Math.min(this.maxX, x));
 		this.y=Math.max(this.minY, Math.min(this.maxY, y));
 		this.scrolled=true;

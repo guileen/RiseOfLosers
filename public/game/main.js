@@ -156,14 +156,9 @@ var game=new ROL.Game({
 				if (node){
 
 					var player=scene.player;
-					if (!player.currentNode && !player.toNode){
-						player.setNode(node);
-					}else if (!player.toNode){
-						player.toNode=node;
-					}
 
-					if(player.currentNode && player.toNode){
-						
+					if(!player.moving && !player.toNode && player.currentNode!=node){
+						player.toNode=node;
 						
 						game.rest.get('/api/goto/'+player.toNode.id, function(err,data,res){
 							

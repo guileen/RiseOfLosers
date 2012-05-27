@@ -97,6 +97,7 @@ var SceneConfig =[
 				this.player.init();
 				var cn=this.finder.getNode(player.node||player.pos);
 				if (cn){
+					console.log("arr 0")
 					this.player.onArrive(cn);
 					console.log(cn.pos)
 					setTimeout(function(){
@@ -124,8 +125,8 @@ var SceneConfig =[
 				var y=this.map.y+dy;
 				this.map.setPos(x,y);
 				var bar=$id("quickbar");
-				x=bar.x-dx
-				y=bar.y-dy
+				x=bar.x-(this.map.x-this.map.lastX);
+				y=bar.y-(this.map.y-this.map.lastY);
 				bar.x=x||0;
 				bar.y=y||0;
 				bar.style.left=x+"px"
