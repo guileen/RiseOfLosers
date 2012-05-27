@@ -9,6 +9,21 @@ var exports = module.exports = {
     , name: '上海'
     }
   }
+
+/*
+○ 人民广场
+○ 东方明珠 
+金茂 环球
+○ 城隍庙
+○ 世博园
+○ 徐家汇
+○ 中山公园
+○ 五角场转盘
+○ 虹桥机场
+○ 森林公园
+○ 张江软件园
+*/
+
 , nodes: {
     '1': {
       id: 1
@@ -20,6 +35,57 @@ var exports = module.exports = {
     , name: '人民广场'
     , cityId: 2
     }
+  , '3': {
+      id: 3
+    , name: '东方明珠'
+    , cityId: 2
+    }
+  , '4': {
+      id: 4
+    , name: '陆家嘴'
+    , cityId: 2
+    }
+  , '5': {
+      id: 5
+    , name: '城隍庙'
+    , cityId: 2
+    }
+  , '6': {
+      id: 6
+    , name: '世博园'
+    , cityId: 2
+    }
+  , '7': {
+      id: 7
+    , name: '徐家汇'
+    , cityId: 2
+    }
+  , '8': {
+      id: 8
+    , name: '中山公园'
+    , cityId: 2
+    }
+  , '9': {
+      id: 9
+    , name: '五角场'
+    , cityId: 2
+    }
+  , '10': {
+      id: 10
+    , name: '虹桥机场'
+    , cityId: 2
+    }
+  , '11': {
+      id: 11
+    , name: '森林公园'
+    , cityId: 2
+    }
+  , '12': {
+      id: 12
+    , name: '张江软件园'
+    , cityId: 2
+    }
+
   }
 , goods: {
     1: {

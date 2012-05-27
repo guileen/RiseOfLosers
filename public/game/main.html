@@ -74,7 +74,7 @@
 	
 
 	function init(){
-		$id("username").focus();
+		
 	}	
 
 	function doLogin(){
@@ -103,25 +103,47 @@
 
 
 		<div id="home" >
-			<form onsubmit="doLogin();return false;">
-				<input type="text" value="fins" id="username" >
-				<input type="password" value="qqq" id="password" >
-				<input type="submit" value="登录" >
-			</form>
+
 		</div>
 
-             <div id="UserInfo">
-                <a href="javascript:void(0)" id="UserIcon"><img src="http://tp4.sinaimg.cn/1667913743/180/5632186274/1" /></a>
-                <div id="UserName">
-                    <a href="javascript:void(0)" class="name-text">搬砖の屌丝</a>
-                </div>
-                <div id="UserExp">
-                    <span id="CurExp"></span>
-                </div>
-                <span id="UserLevel">lv.<b>99</b></span>
-            </div>
+<div id="login" >
+	<form onsubmit="doLogin();return false;">
+		<input type="text" value="fins" id="username" >
+		<input type="password" value="qqq" id="password" >
+		<button class="btn btn-warning btn-large"  type="submit" href="#">登录</button>
+		<!-- <input class="btn btn-warning" type="submit" value="登录" > -->
+	</form>
+</div>
+ <div id="loading">
+	  <div class="progress progress-striped active">
+        <div id="loading-bar" class="bar" style="width: 0%"></div>
+      </div>
+</div>
+<div id="quickbar">
+<div class="btn-group">
+  <button class="btn btn-large">购买</button>
+  <button class="btn btn-large">卖出</button>
+</div>
+</div>
+
+ <div id="UserInfo" style="display:none">
+    <a href="javascript:void(0)" id="UserIcon"><img src="http://tp4.sinaimg.cn/1667913743/180/5632186274/1" /></a>
+    <div id="UserName">
+        <a href="javascript:void(0)" class="name-text">搬砖の屌丝</a>
+    </div>
+    <div id="UserExp">
+        <span id="CurExp"></span>
+    </div>
+    <span id="UserLevel">lv.<b>99</b></span>
+</div>
             <div id="DialogShadow">
             </div>
+            <div class="dialog" id="PlaceDialog">
+					<span class="menu-title">Menu</span>
+					<a href="javascript:gContinue();" class="menu-item">Goto</a>
+					<a href="javascript:gExit();" class="menu-item">Close</a>
+            </div>
+
             <div class="dialog" id="MarketDialog">
                 <a class="close" href="javascript:void(0)">X</a>
             </div>

@@ -20,7 +20,7 @@ console.log(ROL)
 ROL.rest = new RestClient({
    // params: {access_token: 'token', client_id: 'client_id'},
    headers: {Accept: 'application/json'},
-   timeout: 30
+   timeout: 3000
 });
 
 var game=new ROL.Game({
@@ -36,36 +36,28 @@ var game=new ROL.Game({
 	resList : [	
 		{ fn : function(cb){
 
-
 				game.rest.get('/api/player',  function(err, data, res) {
+					console.log(err);
 					if (!err){
 						Datastore.player=data;
-						console.log(data)
+						console.log('/api/player',data)
 						var cityId=data.city;
-						game.rest.get('/game/data/map1.json',  function(err, data, res) {
-							if (!err){
-								Datastore.nodeList=data;
-						   		cb(true);
-							}else{
+						game.rest.get('/api/city/'+cityId,  function(err, data, res) {
 								console.log(err)
-							}
-								 console.log(data)
-						});
-						// return;
-						// game.rest.get('/api/city/'+cityId,  function(err, data, res) {
-						// 	if (!err){
-						// 		Datastore.city=data;
-						// 		Datastore.placeList=data.nodes;
-						// 		console.log(data)
-						//    		game.rest.get('/game/data/map1.json',  function(err, data, res) {
-						// 			if (!err){
-						// 				Datastore.nodeList=data;
-						// 				console.log(data)
-						// 		   		cb(true);
-						// 			}
-						// 		});
-						// 	}
-						// });
+								if (!err){
+									Datastore.city=data;
+									Datastore.placeList=data.nodes;
+									console.log('/places/',data.nodes)
+									game.rest.get('/game/data/map1.json',  function(err, data, res) {
+											console.log(err)
+											if (!err){
+												Datastore.nodeList=data;
+												console.log("map1.json",data)
+										   		cb(true);
+											}
+										});
+								}
+							});
 					}
 				});
 			}
@@ -97,22 +89,46 @@ var game=new ROL.Game({
 		{ id : "defalut-place" , src : "./res/defalut-place.png" },
 	].concat(mapImgList),
 
+	beforeLoad : function(){
+		$id("login").style.display="none";
+
+		$id("loading").style.display="block";
+	},
+
 	onLoading : function(loadedCount,totalCount,res){
-		// console.log(loadedCount,totalCount);
-		return //100;
+		$id("loading-bar").style.width=Math.round(loadedCount/totalCount*100)+"%";
+		//return 10;
 	},
 
 	onLoad : function(loadedCount,totalCount){
-		// console.log("onLoad ",loadedCount,totalCount);
-		$id("home").style.display="none";
-		this.ready();
+		var Me=this;
+		setTimeout(function(){
+			$id("loading").style.display="none";
+			$id("home").style.display="none";
+			Me.ready();
+		},1000);
+		
 	},
 	onInit : function(){
 		$id("home").style.display="block";
+		$id("login").style.display="block";
 	},
 	onReady : function(){
 		this.start();
 		// this.setZoom(0.75);
+	},
+
+	hideQuickBar : function(){
+		$id("quickbar").style.display="none";
+	},
+	showQuickBar : function(x,y){
+		console.log(x,this.currentScene.map.x)
+		console.log(y,this.currentScene.map.y)
+		x=x-this.currentScene.map.x
+		y=y-this.currentScene.map.y
+		$id("quickbar").style.left=x+"px"
+		$id("quickbar").style.top=y+"px"
+		$id("quickbar").style.display="block";
 	},
 	initEvent : function(){
 		var Me=this;
@@ -139,9 +155,19 @@ var game=new ROL.Game({
 
 					if(player.currentNode && player.toNode){
 						console.log(player.toNode)
-						dui.marketDialog();
-						var path = finder.search(player.currentNode, player.toNode);
-						player.setPath(path);
+						
+						game.rest.get('/api/goto/'+player.toNode.id, function(err,data,res){
+							
+							if (!err){
+								game.hideQuickBar();
+								var path = finder.search(player.currentNode, player.toNode);
+								player.setPath(path);
+							}else{
+								console.log("goto",err);
+							}
+						});
+
+						
 					}
 				}
 
@@ -170,4 +196,10 @@ var game=new ROL.Game({
 ROL.addEvent(window, "load", function(){
 
 	game.init();
+	$id("username").focus();
+	setTimeout(function(){
+
+		doLogin();
+		
+	},10)
 });

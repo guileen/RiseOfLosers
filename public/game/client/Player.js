@@ -119,8 +119,26 @@ Player.prototype={
 		}
 
 		if(!pos && this.toNode){
-			this.setNode(this.toNode);
+			
+			this.onArrive(this.toNode);
 		}
+	},
+	onArrive : function(node){
+		var Me=this;
+		ROL.rest.get('/api/node/'+node.id+'/goods?detail=1',  function(err, data, res) {
+			console.log(data)
+			if (!err){
+				for (var id in data){
+					var good=data[id];
+
+				}
+				game.showQuickBar(node.pos[0],node.pos[1]);
+			}else{
+				console.log("goods",err);
+			}
+			console.log("arr",node.id)
+			Me.setNode(node);
+		});
 	},
 
 	getNextPoint : function(){

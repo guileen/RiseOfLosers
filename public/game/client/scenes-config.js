@@ -59,7 +59,7 @@ var SceneConfig =[
 
 					var dis=Math.sqrt( dx*dx+dy*dy);
 
-					if (dis<10){
+					if (dis<place.baseX){
 						return node;
 					}
 				}
@@ -97,7 +97,8 @@ var SceneConfig =[
 				this.player.init();
 				var cn=this.finder.getNode(player.node||player.pos);
 				if (cn){
-					this.player.setNode(cn);					
+					this.player.setNode(cn);
+					game.showQuickBar(cn.pos[0],cn.pos[1])					
 				}
 
 				this.scrollTo(this.player.x-200,this.player.y-200);

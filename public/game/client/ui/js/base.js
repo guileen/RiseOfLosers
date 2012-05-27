@@ -175,6 +175,13 @@
             'opacity': '0'
         }).css('opacity', '1');
     };
+    this.dui.hideDialog = function(dialog){
+        dui.conf.dialog_shadow && dui.$dialogShadow.css('display', 'none');
+        dialog.css({
+            'display': 'none',
+            'opacity': '0'
+        }).css('opacity', '1');
+    };
     this.dui.marketDialog = function(){
         dui.showDialog(dui.$marketDialog);
     };
@@ -189,5 +196,13 @@
     };
     this.dui.redCrossDialog = function(){
         dui.showDialog(dui.$redCrossDialog);
+    };
+
+    this.dui.$placeDialog = dui.$i('PlaceDialog');
+    this.dui.placeDialog = function(){
+        dui.showDialog(dui.$placeDialog);
+    };
+    this.dui.placeDialog.close = function(){
+        dui.hideDialog(dui.$placeDialog);
     };
 })();
