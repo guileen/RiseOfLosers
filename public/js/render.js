@@ -48,6 +48,12 @@
    */
   $.fn.render = function(ctx, options) {
     var data = this.data('render');
+
+    if(ctx === 'flush') {
+      if(data) data.flush();
+      return;
+    }
+
     if(!data) {
       this.data('render', (data = new Renderer(this, options)));
     }
