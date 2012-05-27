@@ -134,7 +134,7 @@ var game=new ROL.Game({
 
 	onLoading : function(loadedCount,totalCount,res){
 		$id("loading-bar").style.width=Math.round(loadedCount/totalCount*100)+"%";
-		//return 10;
+		return 50;
 	},
 
 	onLoad : function(loadedCount,totalCount){
