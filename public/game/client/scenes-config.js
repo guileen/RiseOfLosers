@@ -155,7 +155,7 @@ var SceneConfig =[
 				context.save();
 				context.translate(-x,-y);
 				// this.finder.drawConnLines(context);
-				this.finder.drawNode(context);
+				// this.finder.drawNode(context);
 
 				this.placeList.forEach( function(place){
 					place.render(deltaTime, context);
