@@ -30,7 +30,7 @@ Player.prototype={
 	dx : 0,
 	dy : 0,
 
-	speed : 0.08 ,
+	speed : 0.15 ,
 
 	// fromNode : null,
 	toNode : null,
