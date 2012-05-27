@@ -32,7 +32,7 @@ Player.prototype={
 
 	speed : 0.08 ,
 
-	fromNode : null,
+	// fromNode : null,
 	toNode : null,
 	currentNode : null,
 
@@ -79,7 +79,7 @@ Player.prototype={
 	},
 
 	setNode : function(node){
-		this.fromNode=node;
+		// this.fromNode=node;
 		this.currentNode=node;
 		this.toNode=null;
 		this.x=node.pos[0];
@@ -115,11 +115,11 @@ Player.prototype={
 				y=pos[1];
 			this.target=pos;
 			this.updateVelocity(x, y);
-			this.currentNode=null;
+			this.moving=true;
 		}
 
-		if(!pos && this.toNode){
-			
+		if(!pos && this.toNode  && this.moving){
+			console.log("arr 1")
 			this.onArrive(this.toNode);
 		}
 	},
@@ -136,8 +136,9 @@ Player.prototype={
 			}else{
 				console.log("goods",err);
 			}
-			console.log("arr",node.id)
 			Me.setNode(node);
+			Me.moving=false;
+
 		});
 	},
 

@@ -112,9 +112,11 @@ var game=new ROL.Game({
 	onInit : function(){
 		$id("home").style.display="block";
 		$id("login").style.display="block";
+
 	},
 	onReady : function(){
 		this.start();
+		$id("UserInfo").style.display="block";
 		// this.setZoom(0.75);
 	},
 
@@ -122,10 +124,12 @@ var game=new ROL.Game({
 		$id("quickbar").style.display="none";
 	},
 	showQuickBar : function(x,y){
-		console.log(x,this.currentScene.map.x)
-		console.log(y,this.currentScene.map.y)
 		x=x-this.currentScene.map.x
 		y=y-this.currentScene.map.y
+		x-=50;
+		y+=50;
+		$id("quickbar").x=x||0;
+		$id("quickbar").y=y||0;
 		$id("quickbar").style.left=x+"px"
 		$id("quickbar").style.top=y+"px"
 		$id("quickbar").style.display="block";
@@ -144,17 +148,17 @@ var game=new ROL.Game({
 				var finder=scene.finder;
 				x+=map.x;
 				y+=map.y;
+				var node=finder.getNodeByPos(x,y);
+				if (node){
+					console.log("click" , node.id)
+				}
 				var node=scene.getNodeByPos(x,y);
 				if (node){
-					var player=scene.player;
-					if (!player.currentNode && !player.toNode){
-						player.setNode(node);
-					}else if (!player.toNode){
-						player.toNode=node;
-					}
 
-					if(player.currentNode && player.toNode){
-						console.log(player.toNode)
+					var player=scene.player;
+
+					if(!player.moving && !player.toNode && player.currentNode!=node){
+						player.toNode=node;
 						
 						game.rest.get('/api/goto/'+player.toNode.id, function(err,data,res){
 							

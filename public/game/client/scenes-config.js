@@ -97,11 +97,16 @@ var SceneConfig =[
 				this.player.init();
 				var cn=this.finder.getNode(player.node||player.pos);
 				if (cn){
-					this.player.setNode(cn);
-					game.showQuickBar(cn.pos[0],cn.pos[1])					
+					console.log("arr 0")
+					this.player.onArrive(cn);
+					console.log(cn.pos)
+					setTimeout(function(){
+						game.showQuickBar(cn.pos[0],cn.pos[1])					
+						game.currentScene.scrollTo(cn.pos[0]-200,cn.pos[1]-200);
+					},100)
 				}
 
-				this.scrollTo(this.player.x-200,this.player.y-200);
+				
 
 				var Me=this;
 				this.placeList.forEach( function(place){
@@ -119,6 +124,13 @@ var SceneConfig =[
 				var x=this.map.x+dx;
 				var y=this.map.y+dy;
 				this.map.setPos(x,y);
+				var bar=$id("quickbar");
+				x=bar.x-(this.map.x-this.map.lastX);
+				y=bar.y-(this.map.y-this.map.lastY);
+				bar.x=x||0;
+				bar.y=y||0;
+				bar.style.left=x+"px"
+				bar.style.top=y+"px"
 			},
 
 			beforeRun : ROL.noop,

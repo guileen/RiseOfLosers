@@ -76,7 +76,7 @@
 
 				var dis=Math.sqrt( dx*dx+dy*dy);
 
-				if (dis<10){
+				if (dis<20){
 					return node;
 				}
 			}
