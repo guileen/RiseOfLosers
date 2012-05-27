@@ -3,8 +3,8 @@ var mapImgList=[];
 
 (function(){
 
-	for (var y=1;y<=6;y++){
-		for (var x=1;x<=8;x++){
+	for (var y=1;y<=5;y++){
+		for (var x=1;x<=7;x++){
 			var res={
 				id : "tile_"+x+"_"+y,
 				src : "./res/tiles/x"+x+"y"+y+".jpg"
