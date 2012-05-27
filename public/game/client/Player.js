@@ -259,7 +259,7 @@ Player.prototype={
 		var iX=f.x , iY=f.y, iW=f.w, iH=f.h , w=f.w, h=f.h ;
 // console.log(iX,iY,iW,iH, 0,0, w, h)
 		var dx=this.x-this.lastX;
-		if (dx>1){
+		if (dx>0){
 			context.scale(-1,1);
 		}else{
 			
