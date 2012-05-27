@@ -177,28 +177,28 @@ module.exports = function(app) {
       })
   });
 
-  app.get('/api/buy/:goodId/:count', requireLogin, function(req, res, next) {
+  app.get('/api/buy', requireLogin, function(req, res, next) {
       var uid = req.session.uid
-        , goodId = req.params.goodId
-        , count = req.params.count
+        , itemId = req.query.item
+        , count = req.query.count
         ;
       Player.loadPlayer(uid, function(err, player) {
           if(err) {return next(err);}
           var shop = service.getWorld().getNode(player.node);
-          shop.playerBuy(player, goodId, count, sendjson(403, res));
+          shop.playerBuy(player, itemId, count, sendjson(res, 403));
       })
   })
 
-  app.get('/api/sell/:goodId/:count', requireLogin, function(req, res, next) {
+  app.get('/api/sell', requireLogin, function(req, res, next) {
       var uid = req.session.uid
-        , goodId = req.params.goodId
-        , count = req.params.count
+        , itemId = req.query.item
+        , count = req.query.count
         ;
 
       Player.loadPlayer(uid, function(err, player) {
           if(err) {return next(err);}
           var shop = service.getWorld().getNode(player.node);
-          shop.playerSell(player, goodId, count, sendjson(403, res));
+          shop.playerSell(player, itemId, count, sendjson(res, 403));
       })
   })
 
