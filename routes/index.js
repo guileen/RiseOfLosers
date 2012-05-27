@@ -2,7 +2,7 @@ var OAuth2 = require('oauth').OAuth2
   , config = require('../config')
   , qs = require('querystring')
   , service = require('../lib/')
-  , weibo = require('../lib/weibo')
+  // , weibo = require('../lib/weibo')
   , User = service.User
   ;
 
